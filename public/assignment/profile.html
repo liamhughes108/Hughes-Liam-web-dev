@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <title>Profile</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
 </head>
-<body>
-<h1>Profile</h1>
+<body class="container has-fixed-head">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                Profile
+            </a>
+            <p class="navbar-text pull-right">
+                <a href="#" class="navbar-link">
+          <span class="glyphicon glyphicon-ok">
+          </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
 <form>
     <label for="username">Username</label>
     <input name="username"
@@ -39,5 +54,16 @@
 <a class = "btn btn-block btn-danger" href = "login.html" role = "button">
     Logout
 </a>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="row navbar-text">
+            <p class="navbar-text pull-right">
+                <a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
 </body>
 </html>
