@@ -5,54 +5,53 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <title>Edit Page</title>
+    <title>Edit Website</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body class="container has-fixed-head">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text">
-            <a href="page-list.html" class="navbar-link">
+            <a href="website-list.html" class="navbar-link">
           <span class="glyphicon glyphicon-chevron-left">
           </span>
             </a>
         </p>
-        <a class="navbar-brand" href="#">
-            Edit Page
+        <a class="navbar-brand" href="website-edit.html">
+            Edit Website
         </a>
         <p class="navbar-text pull-right">
-            <a href="page-list.html" class="navbar-link">
+            <a href="website-list.html" class="navbar-link">
           <span class="glyphicon glyphicon-ok">
           </span>
             </a>
         </p>
     </div>
 </nav>
-<form id="page">
-    <label for="pageName">
+<form id="application">
+    <label for="appName">
         Name
     </label>
     <input
-            id="pageName"
+            id="appName"
             type="text"
             class="form-control"
-            placeholder="page name"
+            placeholder="name"
     />
-    <label for="pageTitle">
-        Title
+    <label for="appDescription">
+        Description
     </label>
-    <input
-            id="pageTitle"
-            type="text"
-            class="form-control"
-            placeholder="page title"
-    />
 </form>
+<textarea
+        class="form-control"
+        form="application"
+        id="appDescription"
+        wrap="soft"></textarea>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <p class="navbar-text pull-right">
-            <a href="profile.html">
+            <a href="../user/profile.html">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </p>
