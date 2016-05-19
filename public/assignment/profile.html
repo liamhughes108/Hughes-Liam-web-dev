@@ -7,9 +7,9 @@
     <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
     <title>Profile</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body class="container has-fixed-head">
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -23,38 +23,44 @@
         </p>
     </div>
 </nav>
-<form>
-    <label for="username">Username</label>
-    <input name="username"
-           id="username"
-           type="text"
-           placeholder="alice"
-           class="form-control"/>
-    <label for="email">Email</label>
-    <input name="email"
-           id="email"
-           type="email"
-           placeholder="alice@wonderland.com"
-           class="form-control"/>
-    <label for=first_name>First Name</label>
-    <input name="first_name"
-           id="first_name"
-           type="text"
-           placeholder="Alice"
-           class="form-control"/>
-    <label for="last_name">Last Name</label>
-    <input name="last_name"
-           id="last_name"
-           type="text"
-           placeholder="Wonderland"
-           class="form-control"/>
-</form>
-<a class="btn btn-block btn-primary" href="website-list.html" role="button">
-    Websites
-</a>
-<a class="btn btn-block btn-danger" href="login.html" role=button">
-    Logout
-</a>
+<div class="container">
+    <form>
+        <label for="username">Username</label>
+        <input name="username"
+               id="username"
+               type="text"
+               placeholder="username"
+               class="form-control"/>
+        <label for="email">Email</label>
+        <input name="email"
+               id="email"
+               type="email"
+               placeholder="alice@wonderland.com"
+               class="form-control"/>
+        <label for=first_name>First Name</label>
+        <input name="first_name"
+               id="first_name"
+               type="text"
+               placeholder="Alice"
+               class="form-control"/>
+        <label for="last_name">Last Name</label>
+        <input name="last_name"
+               id="last_name"
+               type="text"
+               placeholder="Wonderland"
+               class="form-control"/>
+    </form>
+    <a class="btn btn-block btn-primary"
+       href="website-list.html"
+       role="button">
+        Websites
+    </a>
+    <a class="btn btn-block btn-danger"
+       href="login.html"
+       role=button">
+        Logout
+    </a>
+</div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <p class="navbar-text pull-right">
