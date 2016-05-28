@@ -16,7 +16,8 @@
         var api = {
             createWebsite: createWebsite,
             findWebsitesForUserId: findWebsitesForUserId,
-            deleteWebsite: deleteWebsite
+            deleteWebsite: deleteWebsite,
+            updateWebsite: updateWebsite,
         };
         return api;
 
@@ -49,6 +50,17 @@
                 }
             }
             return resultSet;
+        }
+
+        function updateWebsite(websiteId, name, desc) {
+            for(var i in websites) {
+                if (websites[i]._id === websiteId) {
+                    websites[i].name = name;
+                    websites[i].description = desc;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 })();
