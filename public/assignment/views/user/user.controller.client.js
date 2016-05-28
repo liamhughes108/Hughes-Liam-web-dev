@@ -15,36 +15,32 @@
         var vm = this;
         vm.updateUser = updateUser;
 
-        var id = $routeParams["id"];
+        var id = $routeParams.id;
         var index = -1;
-        function init() {
-            for(var i in users) {
-                if(users[i]._id === id) {
-                    vm.user = users[i];
-                    index = i;
-                }
+        for(var i in users) {
+            if(users[i]._id === id) {
+                vm.user = users[i];
+                index = i;
             }
         }
-        init();
 
-        function updateUser() {
-            users[index].firstName = vm.user.firstName;
-            users[index].lastName = vm.user.lastName;
-            vm.success = "User successfully updated";
+        function updateUser(newUser) {
+            console.log(newUser);
+            users[index].firstName = newUser.firstName;
+            users[index].lastName = newUser.lastName;
         }
     }
 
     function LoginController($location) {
-
         var vm = this;
 
-        vm.login = login;
-
-        function login (username, password) {
+        vm.login = function(username, password) {
+            var currentUser = null;
             for(var i in users) {
                 if(users[i].username === username && users[i].password === password) {
-                    var id = users[i]._id;
-                    $location.url("/profile/" + id);
+                    currentUser = users[i];
+                    $location.url("/profile/"+users[i]._id);
+                    break;
                 } else {
                     vm.error = "User not found";
                 }
