@@ -2,7 +2,8 @@
     angular
         .module("WebAppMaker")
         .controller("LoginController", LoginController)
-        .controller("ProfileController", ProfileController);
+        .controller("ProfileController", ProfileController)
+        .controller("RegisterController", RegisterController);
 
     var users = [
         {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
@@ -16,18 +17,14 @@
         vm.updateUser = updateUser;
 
         var id = $routeParams.id;
-        var index = -1;
-        for(var i in users) {
-            if(users[i]._id === id) {
-                vm.user = users[i];
-                index = i;
-            }
+
+        function init() {
+            vm.user = UserService.findUserById(id);
         }
+        init();
 
         function updateUser(newUser) {
-            console.log(newUser);
-            users[index].firstName = newUser.firstName;
-            users[index].lastName = newUser.lastName;
+            UserService.updateUser(id, newUser);
         }
     }
 
@@ -35,16 +32,27 @@
         var vm = this;
 
         vm.login = function(username, password) {
-            var currentUser = null;
-            for(var i in users) {
-                if(users[i].username === username && users[i].password === password) {
-                    currentUser = users[i];
-                    $location.url("/profile/"+users[i]._id);
-                    break;
-                } else {
-                    vm.error = "User not found";
-                }
+            var user = UserService.findUserByCredentials(username, password);
+            if(user) {
+                $location.url("/profile/" + user._id);
+            } else {
+                vm.error = "User not found";
             }
+        }
+    }
+    
+    function RegisterController($location) {
+        var vm = this;
+        vm.register = register;
+        
+        register = function(username, passoword) {
+            var newUser = UserService.createUser(username, password);
+            if(newUser) {
+                $location.url("/profile/" + user._id);
+            } else {
+                vm.error = "User could not be created";
+            }
+            
         }
     }
 })();

@@ -21,7 +21,14 @@
         };
         return api;
 
-        function createUser(newUser) {
+        function createUser(username, password) {
+            var newUser = {
+                _id: (new Date()).getTime()+"",
+                username: username,
+                password: password
+            };
+            users.push(newUser);
+            return newUser;
         }
 
         function findUserById(id) {
