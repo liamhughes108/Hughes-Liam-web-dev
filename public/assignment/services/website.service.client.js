@@ -15,21 +15,12 @@
     function WebsiteService() {
         var api = {
             createWebsite: createWebsite,
-            findWebsitesForUserId: findWebsitesForUserId,
-            deleteWebsite: deleteWebsite,
+            findWebsitesByUser: findWebsitesByUser,
+            findWebsiteById: findWebsiteById,
             updateWebsite: updateWebsite,
+            deleteWebsite: deleteWebsite,
         };
         return api;
-
-        function deleteWebsite(websiteId) {
-            for(var i in websites) {
-                if(websites[i]._id === websiteId) {
-                    websites.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
-        }
 
         function createWebsite(developerId, name, desc) {
             var newWebsite = {
@@ -42,7 +33,7 @@
             return newWebsite;
         }
 
-        function findWebsitesForUserId(userId) {
+        function findWebsitesByUser(userId) {
             var resultSet = [];
             for(var i in websites) {
                 if(websites[i].developerId === userId) {
@@ -52,11 +43,30 @@
             return resultSet;
         }
 
+        function findWebsiteById(websiteId) {
+            for(var i in websites) {
+                if(websites[i]._id === websiteId) {
+                    return websites[i];
+                }
+            }
+            return null;
+        }
+
         function updateWebsite(websiteId, name, desc) {
             for(var i in websites) {
                 if (websites[i]._id === websiteId) {
                     websites[i].name = name;
                     websites[i].description = desc;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function deleteWebsite(websiteId) {
+            for(var i in websites) {
+                if(websites[i]._id === websiteId) {
+                    websites.splice(i, 1);
                     return true;
                 }
             }
