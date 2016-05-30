@@ -2,7 +2,7 @@
     angular
         .module("WebAppMaker")
         .controller("WidgetChooserController", WidgetChooserController)
-        .controller("NewWidgetController", NewWidgetController)
+        .controller("WidgetEditController", WidgetEditController)
         .controller("WidgetListController", WidgetListController);
 
     function WidgetChooserController(WidgetService) {
@@ -20,8 +20,16 @@
         }
     }
 
-    function NewWidgetController() {
+    function WidgetEditController($routeParams, WidgetService) {
         var vm = this;
+        vm.userId = $routeParams.uid;
+        vm.websiteId = $routeParams.wid;
+        vm.pageId = $routeParams.pid;
+
+        function init() {
+            vm.widgets = WidgetService.findWidgetsForPageId(vm.pageId);
+        }
+        init();
     }
 
     function WidgetListController($routeParams, WidgetService) {
@@ -29,10 +37,20 @@
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
         vm.pageId = $routeParams.pid;
+        vm.getTrustedHtml = getTrustedHtml;
+        vm.getTrustedUrl = getTrustedUrl;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsForPageId(pageId);
+            vm.widgets = WidgetService.findWidgetsForPageId(vm.pageId);
         }
         init();
+
+        function getTrustedHtml(widget) {
+            return widget.text;
+        }
+
+        function getTrustedUrl(widget) {
+            return widget.url;
+        }
     }
 })();

@@ -9,11 +9,12 @@
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
+        vm.pageId = $routeParams.pid;
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = PageService.findPagesByWebsite(vm.websiteId);
+            vm.page = PageService.findPagesById(vm.pageId);
         }
         init();
 
@@ -36,13 +37,13 @@
         }
     }
 
-    function NewPageController($routeParams, PageService) {
+    function NewPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
         vm.createPage = createPage;
 
-        function createPage(name, description) {
+        function createPage(name, title) {
             var newPage = PageService.createPage(vm.websiteId, name, title);
             if(newPage) {
                 $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");

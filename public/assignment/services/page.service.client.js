@@ -26,7 +26,7 @@
                 title: title,
                 websiteId: websiteId
             };
-            websites.push(newPage);
+            pages.push(newPage);
             return newPage;
         }
 
@@ -37,7 +37,7 @@
                     resultSet.push(pages[i]);
                 }
             }
-            return null;
+            return resultSet;
         }
 
         function findPageById(pageId) {
