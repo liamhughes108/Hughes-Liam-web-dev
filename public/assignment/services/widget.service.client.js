@@ -22,7 +22,13 @@
         return api;
 
         function findWidgetsForPageId(pageId) {
-            return widgets;
+            var resultSet = [];
+            for(var i in widgets) {
+                if(widgets[i].pageId === pageId) {
+                    resultSet.push(widgets[i]);
+                }
+            }
+            return resultSet;
         }
     }
 })();
