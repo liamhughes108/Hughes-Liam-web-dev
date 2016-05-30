@@ -6,9 +6,9 @@
                 </span>
             </a>
         </p>
-        <a class="navbar-brand" href="#">
+        <span class="navbar-brand">
             Pages
-        </a>
+        </span>
         <p class="navbar-text pull-right">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/new" class="navbar-link">
                 <span class="glyphicon glyphicon-plus">
@@ -17,6 +17,7 @@
         </p>
     </div>
 </nav>
+{{model.pages}}
 <div class="container">
     <ul class="list-group">
         <li ng-repeat="page in model.pages" class="list-group-item">

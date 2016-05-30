@@ -19,10 +19,11 @@
         };
         return api;
 
-        function createPage(websiteId, name) {
+        function createPage(websiteId, name, title) {
             var newPage = {
                 _id: (new Date()).getTime()+"",
                 name: name,
+                title: title,
                 websiteId: websiteId
             };
             websites.push(newPage);
