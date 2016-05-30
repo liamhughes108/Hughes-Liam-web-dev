@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <title>Edit Page</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-</head>
-<body class="container has-fixed-head">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <p class="navbar-text pull-left">
-            <a href="page-list.html" class="navbar-link">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                 <span class="glyphicon glyphicon-chevron-left">
                 </span>
             </a>
         </p>
-        <a class="navbar-brand" href="page-edit.html">
+        <a class="navbar-brand" href="#">
             Edit Page
         </a>
         <p class="navbar-text pull-right">
-            <a href="page-list.html" class="navbar-link">
+            <a ng-click="model.updatePage(model.page.id, name, title)" class="navbar-link">
                 <span class="glyphicon glyphicon-ok">
                 </span>
             </a>
@@ -33,7 +21,8 @@
     <form>
         <div class="form-group">
             <label for="page-name">Name</label>
-            <input type="text"
+            <input ng-input="model.page.name"
+                   type="text"
                    class="form-control"
                    id="page-name"
                    value="Blog Post"
@@ -41,14 +30,15 @@
         </div>
         <div class="form-group">
             <label for="page-title">Title</label>
-            <input type="text"
+            <input ng-input="model.page.title"
+                   type="text"
                    class="form-control"
                    id="page-title"
                    placeholder="Page Title">
         </div>
     </form>
     <a class="btn btn-danger  btn-block"
-       href="page-list.html">Delete</a>
+       href="model.deletePage(model.page.id)">Delete</a>
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
@@ -60,12 +50,10 @@
             <div class="col-xs-3 text-center">
             </div>
             <div class="col-xs-3 text-center">
-                <a href="../user/profile.view.client.html">
+                <a href="#/user/{{model.userId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>
         </div>
     </div>
 </nav>
-</body>
-</html>
