@@ -27,52 +27,37 @@ module.exports = function(app) {
     app.put("/api/page/:widgetId", updateWidget);
     app.delete("/api/page/:widgetId", deleteWidget);
 
-    function createPage(req, res) {
-        var newPage = req.body;
+    function createWidget(req, res) {
+        var pageId = req.params.pageId;
+        var newWidget = req.body;
 
-        for(var i in pages) {
-            if(pages[i].name === newPage.name & pages[i].websiteId === newPage.websiteId) {
-                res.status(400).send("Name " + newPage.name + " is already in use");
-                return;
-            }
-        }
-
-        newPage._id = (new Date()).getTime() + "";
-        pages.push(newPage);
-        res.json(newPage);
+        newWidget._id = (new Date()).getTime() + "";
+        newWidget.pageId = pageId;
+        widgets.push(newWidget);
+        res.json(newWidget);
     }
 
-    function findAllPagesByWebsite(req, res) {
-        res.json(pages);
+    function findAllWidgetsByPage(req, res) {
+        res.json(widgets);
     }
 
-    function findPageById(req, res) {
+    function findWidgetById(req, res) {
         var websiteId = req.params.pageId;
-        for(var i in pages) {
-            if(websiteId === pages[i]._id) {
-                res.send(pages[i]);
+        for(var i in widgets) {
+            if(websiteId === widgets[i]._id) {
+                res.send(widgets[i]);
                 return;
             }
         }
         res.send({});
     }
 
-    function findWebsiteByName(name, res) {
-        for(var u in pages) {
-            if(pages[u].name === name) {
-                res.send(pages[u]);
-                return;
-            }
-        }
-        res.send({});
-    }
-
-    function updatePage(req, res) {
+    function updateWidget(req, res) {
         var id = req.params.pageId;
-        var newWebsite = req.body;
-        for(var i in pages) {
-            if(pages[i]._id === id) {
-                pages[i].name = newWebsite.name;
+        var newWidget = req.body;
+        for(var i in widgets) {
+            if(widgets[i]._id === id) {
+                widgets[i].name = newWebsite.name;
                 res.send(200);
                 return;
             }
@@ -80,11 +65,11 @@ module.exports = function(app) {
         res.status(400).send("Website with ID: "+ id +" not found");
     }
 
-    function deletePage(req, res) {
+    function deleteWidget(req, res) {
         var id = req.params.pageId;
-        for(var i in pages) {
-            if(pages[i]._id === id) {
-                pages.splice(i, 1);
+        for(var i in widgets) {
+            if(widgets[i]._id === id) {
+                widgets.splice(i, 1);
                 res.send(200);
                 return;
             }

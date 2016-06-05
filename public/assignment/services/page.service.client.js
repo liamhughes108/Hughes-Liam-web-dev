@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .factory("PageService", PageService);
 
-    function PageService() {
+    function PageService($http) {
         var api = {
             createPage: createPage,
             findPageByWebsiteId: findPageByWebsiteId,
@@ -14,7 +14,7 @@
         return api;
 
         function createPage(websiteId, name) {
-            var url = "/api/user/" + websiteId + "/page";
+            var url = "/api/website/" + websiteId + "/page";
             var newPage = {
                 _id: (new Date()).getTime()+"",
                 name: name,
@@ -24,11 +24,8 @@
         }
 
         function findPageByWebsiteId(websiteId) {
-            var url = "/api/user/" + websiteId + "/page";
-            return $http.get(url)
-                .success(function(response){
-                    $scope.pages = response;
-                });
+            var url = "/api/website/" + websiteId + "/page";
+            return $http.get(url);
         }
 
         function findPageById(pageId) {

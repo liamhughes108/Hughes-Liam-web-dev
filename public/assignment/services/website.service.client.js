@@ -27,10 +27,7 @@
 
         function findWebsitesByUser(userId) {
             var url = "/api/user/" + userId + "/website";
-            $http.get(url)
-                .success(function(response){
-                    $scope.websites = response;
-                });
+            return $http.get(url);
         }
 
         function findWebsiteById(websiteId) {

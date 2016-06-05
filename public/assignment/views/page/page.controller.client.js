@@ -1,4 +1,4 @@
-(function(){
+(function () {
     angular
         .module("WebAppMaker")
         .controller("EditPageController", EditPageController)
@@ -14,26 +14,41 @@
         vm.deletePage = deletePage;
 
         function init() {
-            vm.page = PageService.findPagesById(vm.pageId);
+            PageService
+                .findPagesById(vm.pageId)
+                .then(
+                    function (response) {
+                        vm.page = response.data;
+                    }
+                );
         }
+
         init();
 
         function updatePage(pageId, name, title) {
-            var newPage = PageService.updatePage(pageId, name, title);
-            if(newPage) {
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            } else {
-                vm.error = "Unable to update website";
-            }
+            PageService
+                .updatePage(pageId, name, title)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    },
+                    function (error) {
+                        vm.error = "Unable to update website";
+                    }
+                );
         }
 
         function deletePage(pageId) {
-            var result = PageService.deletePage(pageId);
-            if(result) {
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            } else {
-                vm.error = "Unable to delete website";
-            }
+            PageService
+                .deletePage(pageId)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    },
+                    function (error) {
+                        vm.error = "Unable to delete website";
+                    }
+                );
         }
     }
 
@@ -44,12 +59,17 @@
         vm.createPage = createPage;
 
         function createPage(name, title) {
-            var newPage = PageService.createPage(vm.websiteId, name, title);
-            if(newPage) {
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            } else {
-                vm.error = "Unable to create website";
-            }
+            PageService
+                .createPage(vm.websiteId, name, title)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                    },
+                    function (error) {
+                        vm.error = "Unable to create website";
+                    }
+
+                );
         }
     }
 
@@ -59,8 +79,15 @@
         vm.websiteId = $routeParams.wid;
 
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            PageService
+                .findPageByWebsiteId(vm.websiteId)
+                .then(
+                    function (response) {
+                        vm.pages = response.data;
+                    }
+                );
         }
+
         init();
     }
 })();

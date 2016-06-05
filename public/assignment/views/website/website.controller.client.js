@@ -1,4 +1,4 @@
-(function(){
+(function () {
     angular
         .module("WebAppMaker")
         .controller("EditWebsiteController", EditWebsiteController)
@@ -13,26 +13,41 @@
         vm.updateWebsite = updateWebsite;
 
         function init() {
-            vm.website = WebsiteService.findWebsiteById(websiteId);
+            WebsiteService
+                .findWebsiteById(websiteId)
+                .then(
+                    function (response) {
+                        vm.website = response.data;
+                    }
+                );
         }
+
         init();
 
         function deleteWebsite(websiteId) {
-            var result = WebsiteService.deleteWebsite(websiteId);
-            if(result) {
-                $location.url("/user/"+vm.userId+"/website");
-            } else {
-                vm.error = "Unable to delete website";
-            }
+            WebsiteService
+                .deleteWebsite(websiteId)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    },
+                    function (error) {
+                        vm.error = "Unable to delete website";
+                    }
+                );
         }
 
         function updateWebsite(websiteId, name, desc) {
-            var newWebsite = WebsiteService.updateWebsite(websiteId, name, desc);
-            if(newWebsite) {
-                $location.url("/user/"+vm.userId+"/website");
-            } else {
-                vm.error = "Unable to update website";
-            }
+            WebsiteService
+                .updateWebsite(websiteId, name, desc)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    },
+                    function (error) {
+                        vm.error = "Unable to update website";
+                    }
+                );
         }
     }
 
@@ -41,8 +56,15 @@
         vm.userId = $routeParams.uid;
 
         function init() {
-            vm.pages = WebsiteService.findWebsitesByUser(vm.userId);
+            WebsiteService
+                .findWebsitesByUser(vm.userId)
+                .then(
+                    function (response) {
+                        vm.websites = response.data;
+                    }
+                );
         }
+
         init();
     }
 
@@ -52,12 +74,16 @@
         vm.createWebsite = createWebsite;
 
         function createWebsite(name, description) {
-            var newWebsite = WebsiteService.createWebsite(vm.userId, name, description);
-            if(newWebsite) {
-                $location.url("/user/"+vm.userId+"/website");
-            } else {
-                vm.error = "Unable to create website";
-            }
+            WebsiteService
+                .createWebsite(vm.userId, name, description)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website");
+                    },
+                    function (error) {
+                        vm.error = "Unable to create website";
+                    }
+                );
         }
     }
 })();

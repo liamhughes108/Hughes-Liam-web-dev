@@ -19,26 +19,63 @@
         var id = $routeParams.id;
 
         function init() {
-            vm.user = UserService.findUserById(id);
+            UserService
+                .findUserById(id)
+                .then(
+                    function (response) {
+                        vm.user = response.data;
+                    }
+                );
         }
 
         init();
 
-        function updateUser(newUser) {
-            UserService.updateUser(id, newUser);
+        function unregister() {
+            UserService
+                .deleteUser(id)
+                .then(
+                    function (response) {
+                        $location.url("/login");
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function updateUser() {
+            UserService
+                .updateUser(id, vm.user)
+                .then(
+                    function (response) {
+                        vm.success = "User successfully updated";
+                    },
+                    function (error) {
+                        vm.error = error.data;
+                    }
+                );
         }
     }
 
     function LoginController($location, UserService) {
         var vm = this;
 
-        vm.login = function (username, password) {
-            var user = UserService.findUserByCredentials(username, password);
-            if (user) {
-                $location.url("/user/" + user._id);
-            } else {
-                vm.error = "User not found";
-            }
+        vm.login = function login(username, password) {
+            UserService
+                .findUserByCredentials(username, password)
+                .then(
+                    function (response) {
+                        console.log(response);
+                        var user = response.data;
+                        if (user) {
+                            var id = user._id;
+                            $location.url("/user/" + id);
+                        }
+                    },
+                    function (error) {
+                        vm.error = "User not found";
+                    }
+                );
         }
     }
 
@@ -48,15 +85,21 @@
 
         register = function (username, passoword, pass_verify) {
             if (password === pass_verify) {
-                var newUser = UserService.createUser(username, password);
-                if (newUser) {
-                    $location.url("/profile/" + user._id);
-                } else {
-                    vm.error = "User could not be created";
-                }
+                UserService
+                    .createUser(username, password)
+                    .then(
+                        function(response){
+                            var user = response.data;
+                            $location.url("/user/"+user._id);
+                        },
+                        function(error){
+                            vm.error = error.data;
+                        }
+                    );
             } else {
                 vm.error = "Passwords do not match";
             }
         }
     }
-})();
+})
+();

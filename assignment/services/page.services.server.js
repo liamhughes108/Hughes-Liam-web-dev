@@ -28,13 +28,22 @@ module.exports = function(app) {
     }
 
     function findAllPagesByWebsite(req, res) {
-        res.json(pages);
+        var websiteId = req.params.websiteId;
+        var resultSet = [];
+
+        for (var i in pages) {
+            if (pages[i].websiteId === websiteId) {
+                resultSet.push(pages[i]);
+            }
+        }
+
+        res.json(resultSet);
     }
 
     function findPageById(req, res) {
-        var websiteId = req.params.pageId;
+        var pageId = req.params.pageId;
         for(var i in pages) {
-            if(websiteId === pages[i]._id) {
+            if(pageId === pages[i]._id) {
                 res.send(pages[i]);
                 return;
             }
