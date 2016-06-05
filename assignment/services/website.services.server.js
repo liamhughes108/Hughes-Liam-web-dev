@@ -10,7 +10,7 @@ module.exports = function(app) {
     ];
 
     app.post("/api/user/:userId/website", createWebsite);
-    app.get("/api/user/:userId/website", findAllWebsitesForUser);
+    app.get("/api/user/:userId/website", findAllWebsitesByUser);
     app.get("/api/website/:websiteId", findWebsiteById);
     app.put("/api/website/:websiteId", updateWebsite);
     app.delete("/api/website/:websiteId", deleteWebsite);
@@ -19,7 +19,7 @@ module.exports = function(app) {
         var newWebsite = req.body;
 
         for(var i in websites) {
-            if(website[i].name === newWebsite.name & website[i].developerId === newWebsite.developerId) {
+            if(websites[i].name === newWebsite.name & websites[i].developerId === newWebsite.developerId) {
                 res.status(400).send("Name " + newWebsite.name + " is already in use");
                 return;
             }
@@ -30,14 +30,8 @@ module.exports = function(app) {
         res.json(newWebsite);
     }
 
-    function findAllWebsitesForUser(req, res) {
-        var name = req.query["name"];
-        var developerId = req.params.userId;
-        if(name && developerId) {
-            findWebsiteByName(name, res);
-        } else {
-            res.send(names);
-        }
+    function findAllWebsitesByUser(req, res) {
+        res.json(websites);
     }
 
     function findWebsiteById(req, res) {
