@@ -29,94 +29,39 @@
             createWidget: createWidget,
             findWidgetsForPageId: findWidgetsForPageId,
             findWidgetById: findWidgetById,
-            updateHeading: updateHeading,
-            updateImage: updateImage,
-            updateHtml: updateHtml,
-            updateYoutube: updateYoutube,
+            updateWidget: updateWidget,
             deleteWidget: deleteWidget
         };
         return api;
 
         function createWidget(pageId, widgetType) {
+            var url = "/api/website/" + pageId + "/page";
             var newWidget = {
                 _id: (new Date()).getTime() + "",
                 widgetType: widgetType,
                 pageId: pageId
             };
-            widgets.push(newWidget);
-            return newWidget;
+            return $http.post(url, newWidget);
         }
 
         function findWidgetsForPageId(pageId) {
-            var resultSet = [];
-            for (var i in widgets) {
-                if (widgets[i].pageId === pageId) {
-                    resultSet.push(widgets[i]);
-                }
-            }
-            return resultSet;
+            var url = "/api/page/" + pageId + "/widget";
+            return $http.get(url);
         }
 
         function findWidgetById(widgetId) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    return widgets[i];
-                }
-            }
-            return null;
+            var url = "/api/widget/" + widgetId;
+            return $http.get(url);
         }
 
-        function updateHeading(widgetId, text, size) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].text = text;
-                    widgets[i].size = size;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function updateImage(widgetId, url, width) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].url = url;
-                    widgets[i].width = width;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function updateHtml(widgetId, text) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].text = text;
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        function updateYoutube(widgetId, url, width) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].url = url;
-                    widgets[i].width = width;
-                    return true;
-                }
-            }
-            return false;
+        function updateWidget(widgetId, newWidget) {
+            var url = "/api/widget/" + widgetId;
+            return $http.get(url, newWidget)
         }
 
         function deleteWidget(widgetId) {
-            for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets.splice(i, 1);
-                    return true;
-                }
-            }
-            return false;
+            var url = "/api/user/" + widgetId;
+            return $http.delete(url);
         }
     }
 })();

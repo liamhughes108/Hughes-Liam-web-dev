@@ -53,11 +53,11 @@ module.exports = function(app) {
     }
 
     function updateWidget(req, res) {
-        var id = req.params.pageId;
+        var id = req.params.widgetId;
         var newWidget = req.body;
         for(var i in widgets) {
             if(widgets[i]._id === id) {
-                widgets[i].name = newWebsite.name;
+                widgets[i] = newWidget;
                 res.send(200);
                 return;
             }
@@ -66,7 +66,7 @@ module.exports = function(app) {
     }
 
     function deleteWidget(req, res) {
-        var id = req.params.pageId;
+        var id = req.params.widgetId;
         for(var i in widgets) {
             if(widgets[i]._id === id) {
                 widgets.splice(i, 1);
@@ -75,5 +75,27 @@ module.exports = function(app) {
             }
         }
         res.status(404).send("Unable to remove website with ID: " + id);
+    }
+
+    function uploadImage(req, res) {
+
+        var widgetId      = req.body.widgetId;
+        var width         = req.body.width;
+        var myFile        = req.file;
+
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
+
+        for(var i in widgets) {
+            if(widgets[i]._id === widgetId) {
+                widgets[i].url = "/uploads/"+filename;
+            }
+        }
+
+        res.redirect("/assignment/#/user/:uid/website/:wid/page/:pid/widget/345");
     }
 }

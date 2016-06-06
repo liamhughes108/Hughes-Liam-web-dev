@@ -33,7 +33,7 @@
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     },
                     function (error) {
-                        vm.error = "Unable to update website";
+                        vm.error = "Unable to update page";
                     }
                 );
         }
@@ -46,7 +46,7 @@
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     },
                     function (error) {
-                        vm.error = "Unable to delete website";
+                        vm.error = "Unable to delete page";
                     }
                 );
         }
@@ -66,7 +66,7 @@
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                     },
                     function (error) {
-                        vm.error = "Unable to create website";
+                        vm.error = "Unable to create page";
                     }
 
                 );

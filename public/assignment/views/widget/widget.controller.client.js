@@ -11,12 +11,17 @@
         vm.createWidget = createWidget;
 
         function createWidget(widgetType) {
-            var newWidget = WidgetService.createWidget(vm.pageId, widgetType);
-            if (newWidget) {
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+newWidget._id);
-            } else {
-                vm.error = "Unable to create Widget"
-            }
+            WidgetService
+                .createWidget(vm.pageId, widgetType)
+                .then(
+                    function (response) {
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+newWidget._id);
+                    },
+                    function (error) {
+                        vm.error = "Unable to create Widget"
+
+                    }
+                );
         }
     }
 
@@ -27,27 +32,44 @@
         vm.pageId = $routeParams.pid;
         vm.widgetId = $routeParams.wgid;
         vm.deleteWidget = deleteWidget;
-        vm.updateHeading = updateHeading;
-        vm.updateImage = updateImage;
-        vm.updateHtml = updateHtml;
-        vm.updateYoutube = updateYoutube;
+        vm.updateWidget = updateWidget;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            console.log(vm.widgetId);
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .then(
+                    function (response) {
+                        vm.widget = response.data;
+                    }                    
+                );
         }
         init();
 
         function deleteWidget(widgetId) {
-            $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+            WidgetService
+                .deleteWidget(widgetId)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    },
+                    function (error) {
+                        vm.error = "Unable to delete widget";
+                    }
+                );
         }
         
-        function updateHeading(text, size) {
-            var newWidget = WidgetService.updateHeading(vm.widgetId, text, size);
-            if(newWidget) {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            } else {
-                wm.error = "Unable to update Widget"
-            }
+        function updateWidget(text, size) {
+            WidgetService
+                .updateHeading(vm.widgetId, vm.widget)
+                .then(
+                    function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    },
+                    function (error) {
+                        vm.error = "Unable to update Widget"
+                    }
+                );
         }
         
         function updateImage(url, width) {
@@ -55,7 +77,7 @@
             if(newWidget) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                wm.error = "Unable to update Widget"
+                vm.error = "Unable to update Widget"
             }        }
 
         function updateHtml(text) {
@@ -63,7 +85,7 @@
             if(newWidget) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                wm.error = "Unable to update Widget"
+                vm.error = "Unable to update Widget"
             }        }
 
         function updateYoutube(url, width) {
@@ -71,7 +93,7 @@
             if(newWidget) {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             } else {
-                wm.error = "Unable to update Widget"
+                vm.error = "Unable to update Widget"
             }        }
 
     }
@@ -84,8 +106,17 @@
         vm.getTrustedHtml = getTrustedHtml;
         vm.getTrustedUrl = getTrustedUrl;
 
+        $(".widget-container")
+            .sortable({axis: "y"});
+
         function init() {
-            vm.widgets = WidgetService.findWidgetsForPageId(vm.pageId);
+            WidgetService
+                .findWidgetsForPageId(vm.pageId)
+                .then(
+                    function (response) {
+                        vm.widgets = response.data;
+                    }
+                );
         }
         init();
 
