@@ -40,8 +40,16 @@
                    placeholder="Width (%)">
         </div>
     </form>
+
+    <a class="btn btn-primary btn-block"
+       href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widget._id}}/flickr">
+        Search Flickr
+    </a>
+
     <a class="btn btn-danger  btn-block"
-       ng-click="model.deleteWidget(model.widgetId)">Delete</a>
+       ng-click="model.deleteWidget(model.widgetId)">
+        Delete
+    </a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
