@@ -27,6 +27,11 @@ module.exports = function(app) {
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
 
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: '/../../public/uploads' });
+
+    app.post("/api/upload", uploadImage);
+
     function createWidget(req, res) {
         var pageId = req.params.pageId;
         var newWidget = req.body;
@@ -105,6 +110,6 @@ module.exports = function(app) {
             }
         }
 
-        res.redirect("/assignment/#/user/:uid/website/:wid/page/:pid/widget/345");
+        res.redirect("/assignment/#/user/:uid/website/:wid/page/:pid/widget/:wgid");
     }
 }
