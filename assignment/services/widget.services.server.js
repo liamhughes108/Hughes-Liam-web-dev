@@ -1,4 +1,6 @@
 module.exports = function(app) {
+    var multer = require('multer'); // npm install multer --save
+    var upload = multer({ dest: '/../../public/uploads' });
 
     var widgets = [
         {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
@@ -27,10 +29,7 @@ module.exports = function(app) {
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
 
-    var multer = require('multer'); // npm install multer --save
-    var upload = multer({ dest: '/../../public/uploads' });
-
-    app.post("/api/upload", uploadImage);
+    app.post("/api/upload", upload.single('myFile'), uploadImage);
 
     function createWidget(req, res) {
         var pageId = req.params.pageId;
@@ -109,7 +108,5 @@ module.exports = function(app) {
                 widgets[i].url = "/uploads/"+filename;
             }
         }
-
-        res.redirect("/assignment/#/user/:uid/website/:wid/page/:pid/widget/:wgid");
     }
 }
