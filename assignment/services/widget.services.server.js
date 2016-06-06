@@ -1,31 +1,31 @@
 module.exports = function(app) {
 
     var widgets = [
-        {"_id": "123", "widgetType": "HEADER", "pageId": "321", "size": 2, "text": "GIZMODO"},
-        {"_id": "234", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+        {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
+        {_id: "234", widgetType: "HEADER", pageId: "321", size: 4, text: "Lorem ipsum"},
         {
-            "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-            "url": "http://lorempixel.com/400/200/"
+            _id: "345", widgetType: "IMAGE", pageId: "321", width: "100%",
+            url: "http://lorempixel.com/400/200/"
         },
         {
-            "_id": "456",
-            "widgetType": "HTML",
-            "pageId": "321",
-            "text": '<p class="first-text">Investing in undersea internet cables has been a <a href="http://gizmodo.com/why-more-technology-giants-are-paying-to-lay-their-own-1703904291">big part of data strategy </a>plans for tech giants in recent years. Now Microsoft and Facebook are teaming up for the mother of all cables: A 4,100-mile monster that can move 160 Tbps, which will make it the highest-capacity cable on Earth. The cable even has a name, MAREA, and it will break ground (break waves?) later this year. Hopefully it can handle all your selfies.</p>'
+            _id: "456",
+            widgetType: "HTML",
+            pageId: "321",
+            text: '<p class="first-text">Investing in undersea internet cables has been a <a href="http://gizmodo.com/why-more-technology-giants-are-paying-to-lay-their-own-1703904291">big part of data strategy </a>plans for tech giants in recent years. Now Microsoft and Facebook are teaming up for the mother of all cables: A 4,100-mile monster that can move 160 Tbps, which will make it the highest-capacity cable on Earth. The cable even has a name, MAREA, and it will break ground (break waves?) later this year. Hopefully it can handle all your selfies.</p>'
         },
-        {"_id": "567", "widgetType": "HEADER", "pageId": "321", "size": 4, "text": "Lorem ipsum"},
+        {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, text: "Lorem ipsum"},
         {
-            "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-            "url": "https://youtu.be/AM2Ivdi9c4E"
+            _id: "678", widgetType: "YOUTUBE", pageId: "321", width: "100%",
+            url: "https://youtu.be/AM2Ivdi9c4E"
         },
-        {"_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
+        {_id: "789", widgetType: "HTML", pageId: "321", text: "<p>Lorem ipsum</p>"}
     ];
 
     app.post("/api/page/:pageId/widget", createWidget);
     app.get("/api/page/:pageId/widget", findAllWidgetsByPage);
-    app.get("/api/page/:widgetId", findWidgetById);
-    app.put("/api/page/:widgetId", updateWidget);
-    app.delete("/api/page/:widgetId", deleteWidget);
+    app.get("/api/widget/:widgetId", findWidgetById);
+    app.put("/api/widget/:widgetId", updateWidget);
+    app.delete("/api/widget/:widgetId", deleteWidget);
 
     function createWidget(req, res) {
         var pageId = req.params.pageId;
@@ -38,13 +38,22 @@ module.exports = function(app) {
     }
 
     function findAllWidgetsByPage(req, res) {
-        res.json(widgets);
+        var pageId = req.params.pageId;
+        var resultSet = [];
+
+        for (var i in widgets) {
+            if (widgets[i].pageId === pageId) {
+                resultSet.push(widgets[i]);
+            }
+        }
+
+        res.json(resultSet);
     }
 
     function findWidgetById(req, res) {
-        var websiteId = req.params.pageId;
+        var widgetId = req.params.widgetId;
         for(var i in widgets) {
-            if(websiteId === widgets[i]._id) {
+            if(widgetId === widgets[i]._id) {
                 res.send(widgets[i]);
                 return;
             }
@@ -62,7 +71,7 @@ module.exports = function(app) {
                 return;
             }
         }
-        res.status(400).send("Website with ID: "+ id +" not found");
+        res.status(400).send("Widget with ID: "+ id +" not found");
     }
 
     function deleteWidget(req, res) {
@@ -74,7 +83,7 @@ module.exports = function(app) {
                 return;
             }
         }
-        res.status(404).send("Unable to remove website with ID: " + id);
+        res.status(404).send("Unable to remove widget with ID: " + id);
     }
 
     function uploadImage(req, res) {
