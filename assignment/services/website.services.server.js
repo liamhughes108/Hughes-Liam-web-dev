@@ -1,5 +1,7 @@
 module.exports = function (app) {
 
+    var websiteModel = models.websiteModel;
+
     var websites = [
         {_id: "123", name: "Facebook", developerId: "456"},
         {_id: "234", name: "Tweeter", developerId: "456"},
@@ -16,76 +18,80 @@ module.exports = function (app) {
     app.delete("/api/website/:websiteId", deleteWebsite);
 
     function createWebsite(req, res) {
+        var userId = req.params.userId;
         var newWebsite = req.body;
 
-        for (var i in websites) {
-            if (websites[i].name === newWebsite.name & websites[i].developerId === newWebsite.developerId) {
-                res.status(400).send("Name " + newWebsite.name + " is already in use");
-                return;
-            }
-        }
-
-        newWebsite._id = (new Date()).getTime() + "";
-        websites.push(newWebsite);
-        res.json(newWebsite);
+        websiteModel
+            .createWebsite(userId, newWebsite)
+            .then(
+                function (website) {
+                    res.json(website);
+                },
+                function (error) {
+                    res.status(400).send("Name " + newWebsite.name + " is already in use");
+                }
+            );
     }
 
     function findAllWebsitesByUser(req, res) {
         var userId = req.params.userId;
-        var resultSet = [];
 
-        for (var i in websites) {
-            if (websites[i].developerId === userId) {
-                resultSet.push(websites[i]);
-            }
-        }
-
-        res.json(resultSet);
+        websiteModel
+            .findAllWebsitesForUser(userId)
+            .then(
+                function (websites) {
+                    res.json(websites);
+                },
+                function (error) {
+                    res.status(404).send(error);
+                }
+            );
     }
 
     function findWebsiteById(req, res) {
         var websiteId = req.params.websiteId;
-        for (var i in websites) {
-            if (websiteId === websites[i]._id) {
-                res.send(websites[i]);
-                return;
-            }
-        }
-        res.send({});
-    }
 
-    function findWebsiteByName(name, res) {
-        for (var u in websites) {
-            if (websites[u].name === name) {
-                res.send(websites[u]);
-                return;
-            }
-        }
-        res.send({});
+        websiteModel
+            .findWebsiteById(websiteId)
+            .then(
+                function (website) {
+                    res.send(website);
+                },
+                function (error) {
+                    res.status(400).send(error);
+                }
+            );
     }
+    
 
     function updateWebsite(req, res) {
         var id = req.params.websiteId;
         var newWebsite = req.body;
-        for (var i in websites) {
-            if (websites[i]._id === id) {
-                websites[i].name = newWebsite.name;
-                res.send(200);
-                return;
-            }
-        }
-        res.status(400).send("Website with ID: " + id + " not found");
+
+        websiteModel
+            .updatePage(id, newWebsite)
+            .then(
+                function (website) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to update website with ID: " + id);
+                }
+            );
     }
 
     function deleteWebsite(req, res) {
         var id = req.params.websiteId;
-        for (var i in websites) {
-            if (websites[i]._id === id) {
-                websites.splice(i, 1);
-                res.send(200);
-                return;
-            }
-        }
-        res.status(404).send("Unable to remove website with ID: " + id);
+
+        websiteModel
+            .deletePage(id)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to delete website with ID: " + id);
+                }
+            );
     }
 }

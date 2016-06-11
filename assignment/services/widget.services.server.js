@@ -1,6 +1,8 @@
-module.exports = function(app) {
+module.exports = function (app) {
+    var widgetModel = models.widgetModel;
+
     var multer = require('multer'); // npm install multer --save
-    var upload = multer({ dest: '/../../public/uploads' });
+    var upload = multer({dest: '/../../public/uploads'});
 
     var widgets = [
         {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
@@ -35,78 +37,104 @@ module.exports = function(app) {
         var pageId = req.params.pageId;
         var newWidget = req.body;
 
-        newWidget._id = (new Date()).getTime() + "";
-        newWidget.pageId = pageId;
-        widgets.push(newWidget);
-        res.json(newWidget);
+        widgetModel
+            .createWidget(pageId, newWidget)
+            .then(
+                function (widget) {
+                    res.json(widget);
+                },
+                function (error) {
+                    res.status(400).send("Name " + newWidget.name + " is already in use");
+                }
+            );
     }
 
     function findAllWidgetsByPage(req, res) {
         var pageId = req.params.pageId;
-        var resultSet = [];
 
-        for (var i in widgets) {
-            if (widgets[i].pageId === pageId) {
-                resultSet.push(widgets[i]);
-            }
-        }
-
-        res.json(resultSet);
+        widgetModel
+            .findAllWidgetsForPage(pageId)
+            .then(
+                function (widgets) {
+                    res.json(widgets);
+                },
+                function (error) {
+                    res.status(404).send(error);
+                }
+            );
     }
 
     function findWidgetById(req, res) {
         var widgetId = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgetId === widgets[i]._id) {
-                res.send(widgets[i]);
-                return;
-            }
-        }
-        res.send({});
+
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    res.send(widget);
+                },
+                function (error) {
+                    res.status(400).send(error);
+                }
+            );
     }
 
     function updateWidget(req, res) {
         var id = req.params.widgetId;
         var newWidget = req.body;
-        for(var i in widgets) {
-            if(widgets[i]._id === id) {
-                widgets[i] = newWidget;
-                res.send(200);
-                return;
-            }
-        }
-        res.status(400).send("Widget with ID: "+ id +" not found");
+
+        widgetModel
+            .updateWidget(id, newWidget)
+            .then(
+                function (widget) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to update widget with ID: " + id);
+                }
+            );
     }
 
     function deleteWidget(req, res) {
         var id = req.params.widgetId;
-        for(var i in widgets) {
-            if(widgets[i]._id === id) {
-                widgets.splice(i, 1);
-                res.send(200);
-                return;
-            }
-        }
-        res.status(404).send("Unable to remove widget with ID: " + id);
+
+        widgetModel
+            .deleteWidget(id)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to delete widget with ID: " + id);
+                }
+            );
     }
 
     function uploadImage(req, res) {
 
-        var widgetId      = req.body.widgetId;
-        var width         = req.body.width;
-        var myFile        = req.file;
+        var widget = req.body;
+        var widgetId = req.body.widgetId;
+        var width = req.body.width;
+        var myFile = req.file;
 
-        var originalname  = myFile.originalname; // file name on user's computer
-        var filename      = myFile.filename;     // new file name in upload folder
-        var path          = myFile.path;         // full path of uploaded file
-        var destination   = myFile.destination;  // folder where file is saved to
-        var size          = myFile.size;
-        var mimetype      = myFile.mimetype;
+        var originalname = myFile.originalname; // file name on user's computer
+        var filename = myFile.filename;     // new file name in upload folder
+        var path = myFile.path;         // full path of uploaded file
+        var destination = myFile.destination;  // folder where file is saved to
+        var size = myFile.size;
+        var mimetype = myFile.mimetype;
 
-        for(var i in widgets) {
-            if(widgets[i]._id === widgetId) {
-                widgets[i].url = "/uploads/"+filename;
-            }
-        }
+        widget.url = "/uploads/" + filename;
+
+        widgetModel
+            .updateWidget(widgetId, widget)
+            .then(
+                function (widget) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to update widget with ID: " + id);
+                }
+            );
     }
 }
