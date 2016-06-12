@@ -37,9 +37,7 @@
         function createWidget(pageId, widgetType) {
             var url = "/api/page/" + pageId + "/widget";
             var newWidget = {
-                _id: (new Date()).getTime() + "",
                 widgetType: widgetType,
-                pageId: pageId
             };
             return $http.post(url, newWidget);
         }
@@ -56,7 +54,7 @@
 
         function updateWidget(widgetId, newWidget) {
             var url = "/api/widget/" + widgetId;
-            return $http.get(url, newWidget)
+            return $http.put(url, newWidget)
         }
 
         function deleteWidget(widgetId) {

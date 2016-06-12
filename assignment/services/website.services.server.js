@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, models) {
 
     var websiteModel = models.websiteModel;
 
@@ -69,7 +69,7 @@ module.exports = function (app) {
         var newWebsite = req.body;
 
         websiteModel
-            .updatePage(id, newWebsite)
+            .updateWebsite(id, newWebsite)
             .then(
                 function (website) {
                     res.send(200);
@@ -84,7 +84,7 @@ module.exports = function (app) {
         var id = req.params.websiteId;
 
         websiteModel
-            .deletePage(id)
+            .deleteWebsite(id)
             .then(
                 function (status) {
                     res.send(200);

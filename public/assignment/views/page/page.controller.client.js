@@ -5,7 +5,7 @@
         .controller("PageListController", PageListController)
         .controller("NewPageController", NewPageController);
 
-    function EditPageController($routeParams, PageService) {
+    function EditPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.userId = $routeParams.uid;
         vm.websiteId = $routeParams.wid;
@@ -15,7 +15,7 @@
 
         function init() {
             PageService
-                .findPagesById(vm.pageId)
+                .findPageById(vm.pageId)
                 .then(
                     function (response) {
                         vm.page = response.data;
@@ -25,9 +25,9 @@
 
         init();
 
-        function updatePage(pageId, name, title) {
+        function updatePage(pageId, page) {
             PageService
-                .updatePage(pageId, name, title)
+                .updatePage(pageId, page)
                 .then(
                     function (response) {
                         $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");

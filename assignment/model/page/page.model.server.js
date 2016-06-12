@@ -33,7 +33,6 @@ module.exports = function () {
                 $set: {
                     name: newPage.name,
                     title: newPage.title,
-                    description: newPage.description
                 }
             }
         );

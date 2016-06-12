@@ -14,6 +14,7 @@ module.exports = function () {
     return api;
 
     function createWebsite(userId, website) {
+        website._user = userId;
         return Website.create(website);
     }
 

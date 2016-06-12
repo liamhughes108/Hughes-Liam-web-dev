@@ -81,9 +81,8 @@
 
     function RegisterController($location, UserService) {
         var vm = this;
-        vm.register = register;
 
-        register = function (username, passoword, pass_verify) {
+        vm.register = function (username, password, pass_verify) {
             if (password === pass_verify) {
                 UserService
                     .createUser(username, password)

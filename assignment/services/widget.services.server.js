@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, models) {
     var widgetModel = models.widgetModel;
 
     var multer = require('multer'); // npm install multer --save

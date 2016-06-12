@@ -13,13 +13,12 @@
         };
         return api;
 
-        function createPage(websiteId, name) {
+        function createPage(websiteId, name, title) {
             var url = "/api/website/" + websiteId + "/page";
             var newPage = {
-                _id: (new Date()).getTime()+"",
                 name: name,
-                websiteId: websiteId
-            };
+                title: title
+            }
             return $http.post(url, newPage);
         }
 
@@ -33,13 +32,13 @@
             return $http.get(url);
         }
 
-        function updatePage(pageId, name) {
+        function updatePage(pageId, page) {
             var url = "/api/page/" + pageId;
-            return $http.get(url, name);
+            return $http.put(url, page);
         }
 
         function deletePage(pageId) {
-            var url = "/api/user/" + pageId;
+            var url = "/api/page/" + pageId;
             return $http.delete(url);
         }
     }

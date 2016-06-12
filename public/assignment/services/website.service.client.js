@@ -17,12 +17,10 @@
         function createWebsite(developerId, name, desc) {
             var url = "/api/user/" + developerId + "/website";
             var newWebsite = {
-                _id: (new Date()).getTime()+"",
                 name: name,
                 description: desc,
-                developerId: developerId
             };
-            return $http.post(url, newWebstie);
+            return $http.post(url, newWebsite);
         }
 
         function findWebsitesByUser(userId) {
@@ -35,13 +33,13 @@
             return $http.get(url);
         }
 
-        function updateWebsite(websiteId, name, desc) {
+        function updateWebsite(websiteId, website) {
             var url = "/api/website/" + websiteId;
-            return $http.get(url, name, desc);
+            return $http.put(url, website);
         }
 
         function deleteWebsite(id) {
-            var url = "/api/user/" + id;
+            var url = "/api/website/" + id;
             return $http.delete(url);
         }
     }
