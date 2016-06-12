@@ -49,6 +49,20 @@
              class="jga-widget"
              ng-bind-html="model.getTrustedHtml(widget)">
         </div>
+        <div ng-switch-when="TEXT">
+            <div ng-if="widget.formatted"
+                 text-angular
+                 ta-toolbar="..."></div>
+            <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
+                   placeholder="{{widget.textInput.placeholder}}"
+                   class="form-control"/>
+            <textarea ng-if="!widget.formatted && (widget.rows > 1)"
+                      rows="{{widget.rows}}"
+                      placeholder="{{widget.placeholder}}"
+                      class="form-control">
+                {{widget.text}}
+            </textarea>
+        </div>
         <div ng-switch-when="YOUTUBE"
              class="jga-widget jga-youtube">
             <iframe width="{{widget.width}}"
@@ -56,6 +70,14 @@
                     ng-src="{{model.getTrustedUrl(widget)}}"
                     frameborder="0"
                     allowfullscreen></iframe>
+        </div>
+        <div ng-switch-when="HTML"
+             class="jga-widget"
+             ng-model="model.widget.text"
+             text-angular
+             ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
         </div>
         <div ng-switch-default>
             {{widget}}

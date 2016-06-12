@@ -71,24 +71,15 @@ module.exports = function () {
                     }
                 );
                 break;
-            case 'INPUT':
+            case 'TEXT':
                 return Widget.update(
                     {_id: id},
                     {
                         $set: {
-                            /*
-                            name: newWidget.name,
                             text: newWidget.text,
                             placeholder: newWidget.placeholder,
-                            description: newWidget.description,
-                            url: newWidget.url,
-                            width: newWidget.width,
-                            height: newWidget.height,
                             rows: newWidget.rows,
-                            size: newWidget.size,
-                            deletable: newWidget.deletable,
                             formatted: newWidget.formatted
-                            */
                         }
                     }
                 );
@@ -97,7 +88,9 @@ module.exports = function () {
                 return Widget.update(
                     {_id: id},
                     {
-                        $set: {}
+                        $set: {
+                            name: newWidget.name,
+                        }
                     }
                 );
                 break;
