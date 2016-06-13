@@ -88,6 +88,22 @@
         $("#widget-container")
             .sortable({axis: "y"});
 
+        function sorted(startIndex, endIndex) {
+            console.log("WidgetListController");
+            console.log(startIndex);
+            console.log(endIndex);
+            WidgetService
+                .sorted(startIndex, endIndex, vm.pageId)
+                .then(
+                    function (response){
+                        vm.widgets = response.data;
+                    },
+                    function (error) {
+                        vm.error = "Unable to sort widgets";
+                    }
+                )
+        }
+
         function init() {
             WidgetService
                 .findWidgetsForPageId(vm.pageId)

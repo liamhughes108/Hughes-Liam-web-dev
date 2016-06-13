@@ -22,16 +22,54 @@
 </nav>
 
 <div class="container">
+
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <div ng-show="name.$submitted && name.$invalid" class="alert alert-danger">
+        Name is required
+    </div>
+
     <form>
-        <div ng-switch-when="TEXT">
-            Text
-            <input ng-model="model.widget.text" class="form-control"/>
-            Rows
-            <input ng-model="model.widget.rows" class="form-control" type="number"/>
-            Placeholder
-            <input ng-model="model.widget.placeholder" class="form-control"/>
-            Formatted
-            <input ng-model="model.widget.formatted" type="checkbox"/>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input ng-model="model.widget.name"
+                   type="text"
+                   class="form-control"
+                   id="name"
+                   placeholder="name">
+        </div>
+        <div class="form-group">
+            <label for="text">Text</label>
+            <input ng-model="model.widget.text"
+                   type="text"
+                   class="form-control"
+                   id="text"
+                   placeholder="text">
+        </div>
+        <div class="form-group">
+            <label for="rows">Rows</label>
+            <input ng-model="model.widget.rows"
+                   type="text"
+                   class="form-control"
+                   id="rows"
+                   placeholder="rows">
+        </div>
+        <div class="form-group">
+            <label for="placeholder">Placeholder</label>
+            <input ng-model="model.widget.placeholder"
+                   type="text"
+                   class="form-control"
+                   id="placeholder"
+                   placeholder="placeholder">
+        </div>
+        <div class="form-group">
+            <label for="formatted">Formatted</label>
+            <input ng-model="model.widget.formatted"
+                   type="checkbox"
+                   class="form-control"
+                   id="formatted">
         </div>
     </form>
     <a class="btn btn-danger  btn-block"

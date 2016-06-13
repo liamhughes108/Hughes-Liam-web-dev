@@ -30,6 +30,7 @@ module.exports = function (app, models) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+    app.put("/page/:pageId/widget", reorderWidgets);
 
     app.post("/api/upload", upload.single('myFile'), uploadImage);
 
@@ -108,6 +109,23 @@ module.exports = function (app, models) {
                     res.status(404).send("Unable to delete widget with ID: " + id);
                 }
             );
+    }
+
+    function reorderWidgets(req, res) {
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
+        var pageId = req.params.pageId;
+
+        widgetModel
+            .reorderWidgets(start, end, pageId)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to reorder widgets");
+                }
+            )
     }
 
     function uploadImage(req, res) {

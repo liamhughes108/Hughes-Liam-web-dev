@@ -2,26 +2,39 @@
     <div class="container-fluid">
         <p class="navbar-text pull-left">
             <a href="#/user/{{model.userId}}/website" class="navbar-link">
-          <span class="glyphicon glyphicon-chevron-left">
-          </span>
+                <span class="glyphicon glyphicon-chevron-left">
+                </span>
             </a>
         </p>
+
         <span class="navbar-brand">
             Edit Website
         </span>
+
         <p class="navbar-text pull-right">
             <a ng-click="model.updateWebsite(model.website._id, model.website)" class="navbar-link">
-          <span class="glyphicon glyphicon-ok">
-          </span>
+                <span class="glyphicon glyphicon-ok">
+                </span>
             </a>
         </p>
     </div>
 </nav>
+
 <div class="container">
+
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <div ng-show="name.$submitted && name.$invalid" class="alert alert-danger">
+        Name is required
+    </div>
+
     <form>
         <div class="form-group">
             <label for="name">Website Name</label>
             <input ng-model="model.website.name"
+                   required
                    type="text"
                    class="form-control"
                    id="name"
@@ -38,9 +51,12 @@
                 </textarea>
         </div>
     </form>
+
     <a class="btn btn-danger  btn-block"
        ng-click="model.deleteWebsite(model.website._id)">Delete</a>
+
 </div>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="row navbar-text">

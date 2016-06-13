@@ -9,13 +9,24 @@ module.exports = function () {
         findAllWidgetsForPage: findAllWidgetsForPage,
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
-        deleteWidget: deleteWidget
+        deleteWidget: deleteWidget,
+        reorderWidgets: reorderWidgets
     };
     return api;
 
     function createWidget(pageId, widget) {
         widget._page = pageId;
-        return Widget.create(widget);
+        return Widget
+            .find({_page: pageId})
+            .then(
+                function (widgets) {
+                    widget.order = widgets.length;
+                    return Widget.create(widget);
+                },
+                function (error) {
+                    return null;
+                }
+            );
     }
 
     function findWidgetById(widgetId) {
@@ -33,6 +44,7 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
+                            name: newWidget.name,
                             text: newWidget.text,
                             size: newWidget.size
                         }
@@ -44,6 +56,7 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
+                            name: newWidget.name,
                             url: newWidget.url,
                             width: newWidget.width
                         }
@@ -55,6 +68,7 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
+                            name: newWidget.name,
                             url: newWidget.url,
                             width: newWidget.width
                         }
@@ -66,6 +80,7 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
+                            name: newWidget.name,
                             text: newWidget.text
                         }
                     }
@@ -76,6 +91,7 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
+                            name: newWidget.name,
                             text: newWidget.text,
                             placeholder: newWidget.placeholder,
                             rows: newWidget.rows,
@@ -89,12 +105,44 @@ module.exports = function () {
                     {_id: id},
                     {
                         $set: {
-                            name: newWidget.name,
+                            name: newWidget.name
                         }
                     }
                 );
                 break;
         }
+    }
+
+    function reorderWidgets(start, end, pageId) {
+        var widgets = find({_page: pageId});
+        widgets.forEach(function (widget) {
+            if (start < end) {
+                if (widget.order >= start && widget.order < end) {
+                    var newOrder = widget.order--;
+                    setNewOrder(widget._id, newOrder);
+                } else if (widget.order === start) {
+                    setNewOrder(widget._id, end);
+                }
+            } else {
+                if (widget.order >= end && widget.order < start) {
+                    var newOrder = widget.order++;
+                    setNewOrder(widget._id, newOrder);
+                } else if (widget.order === start) {
+                    setNewOrder(widget._id, end);
+                }
+            }
+        });
+    }
+
+    function setNewOrder(id, newOrder) {
+        return Widget.update(
+            {_id: id},
+            {
+                $set: {
+                    order: newOrder
+                }
+            }
+        )
     }
 
     function deleteWidget(widgetId) {

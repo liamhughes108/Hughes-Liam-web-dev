@@ -18,7 +18,17 @@
     </div>
 </nav>
 <div class="container">
+
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <div ng-show="name.$submitted && name.$invalid" class="alert alert-danger">
+        Name is required
+    </div>
+
     <form>
+
         <div class="form-group">
             <label for="page-name">Name</label>
             <input ng-model="name"
@@ -27,6 +37,7 @@
                    id="page-name"
                    placeholder="Name">
         </div>
+
         <div class="form-group">
             <label for="page-title">Title</label>
             <input ng-model="title"
@@ -35,7 +46,9 @@
                    id="page-title"
                    placeholder="Page Title">
         </div>
+
     </form>
+
 </div>
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">

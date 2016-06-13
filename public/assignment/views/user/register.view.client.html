@@ -3,16 +3,35 @@
         {{model.error}}
     </div>
 
+    <div ng-show="username.$submitted && username.$invalid" class="alert alert-danger">
+        Username is required
+    </div>
+
+    <div ng-show="password.$submitted && password.$invalid" class="alert alert-danger">
+        Password is required
+    </div>
+
+    <div ng-show="pass_verify.$submitted && pass_verify.$invalid" class="alert alert-danger">
+        Password verification is required
+    </div>
+
+    <div ng-show="pass_verify.$submitted && password === pass_verify" class="alert alert-danger">
+        Passwords must match
+    </div>
+
     <h2>Register</h2>
     <input ng-model="username"
+           required
            class="form-control"
            placeholder="username"
            type="text"/>
     <input ng-model="password"
+           required
            class="form-control"
            placeholder="password"
            type="password">
     <input ng-model="pass_verify"
+           required
            class="form-control"
            placeholder="verify password"
            type="password">

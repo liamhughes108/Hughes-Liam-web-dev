@@ -6,6 +6,7 @@ module.exports = function() {
     var WidgetSchema = mongoose.Schema({
         _page: {type: mongoose.Schema.Types.ObjectId, ref: 'Page'},
         widgetType: {type: String, enum: WidgetTypeEnum},
+        order: Number,
         name: String,
         text: String,
         placeholder: String,
