@@ -1,0 +1,62 @@
+<div class="container">
+    <!-- Register Form -->
+    <form class="form-horizontal">
+        <legend>Register</legend>
+
+        <!-- Username Input -->
+        <div class="form-group">
+            <label for="username"
+                   class="col-lg-2 control-label">
+                Username
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="username"
+                       type="text"
+                       class="form-control"
+                       id="username"
+                       placeholder="username">
+            </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+            <label for="password"
+                   class="col-lg-2 control-label">
+                Password
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="password"
+                       type="password"
+                       class="form-control"
+                       id="password"
+                       placeholder="password">
+            </div>
+        </div>
+
+        <!-- Password Verification -->
+        <div class="form-group">
+            <label for="password_verify"
+                   class="col-lg-2 control-label">
+                Verify Password
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="password_verify"
+                       type="password"
+                       class="form-control"
+                       id="password_verify"
+                       placeholder="password">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <a href="#/profile"
+           class="btn btn-primary btn-block">
+            Register
+        </a>
+        <a class="btn btn-danger btn-block"
+           href="#/login">
+            Cancel
+        </a>
+
+    </form>
+</div>

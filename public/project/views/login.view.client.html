@@ -1,0 +1,47 @@
+<div class="container">
+    <!-- Login Form -->
+    <form class="form-horizontal">
+        <legend>Login</legend>
+
+        <!-- Username Input -->
+        <div class="form-group">
+            <label for="username"
+                   class="col-lg-2 control-label">
+                Username
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="username"
+                       type="text"
+                       class="form-control"
+                       id="username"
+                       placeholder="username">
+            </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+            <label for="password"
+                   class="col-lg-2 control-label">
+                Password
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="password"
+                       type="password"
+                       class="form-control"
+                       id="password"
+                       placeholder="password">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <a href="#/profile"
+           class="btn btn-primary btn-block">
+            Login
+        </a>
+        <a class="btn btn-default btn-block"
+           href="#/register">
+            Register
+        </a>
+
+    </form>
+</div>

@@ -1,0 +1,115 @@
+<!-- Collapsible Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target="#navbar-data">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Movie List Share</a>
+        </div>
+
+        <div class="collapse navbar-collapse"
+             id="navbar-data">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a>Profile</a>
+                </li>
+                <li>
+                    <a href="#/my-lists">My Lists</a>
+                </li>
+                <li>
+                    <a href="#/shared-lists">Shared</a>
+                </li>
+                <li>
+                    <a href="#/friends">Friends</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Profile Form -->
+    <form class="form-horizontal">
+        <legend>Profile</legend>
+
+        <!-- Username Input -->
+        <div class="form-group">
+            <label for="username"
+                   class="col-lg-2 control-label">
+                Username
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="username"
+                       type="text"
+                       class="form-control"
+                       id="username"
+                       placeholder="username">
+            </div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+            <label for="email"
+                   class="col-lg-2 control-label">
+                Email
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="email"
+                       type="email"
+                       class="form-control"
+                       id="email"
+                       placeholder="email">
+            </div>
+        </div>
+
+        <!-- First Name Input -->
+        <div class="form-group">
+            <label for="firstname"
+                   class="col-lg-2 control-label">
+                First Name
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="firstname"
+                       type="text"
+                       class="form-control"
+                       id="firstname"
+                       placeholder="first name">
+            </div>
+        </div>
+
+        <!-- Last Name Input -->
+        <div class="form-group">
+            <label for="lastname"
+                   class="col-lg-2 control-label">
+                Last Name
+            </label>
+            <div class="col-lg-10">
+                <input ng-model="lastname"
+                       type="text"
+                       class="form-control"
+                       id="lastname"
+                       placeholder="last name">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <!--
+        <a ng-click="model.register(username, password, password_verify)"
+           class="btn btn-primary btn-block">
+            Register
+        </a>
+        <a class="btn btn-danger btn-block"
+           href="#/login">
+            Cancel
+        </a>
+        -->
+
+    </form>
+</div>
