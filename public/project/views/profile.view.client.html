@@ -1,6 +1,8 @@
-<!-- Collapsible Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<!-- Header Navigation -->
+<nav class="navbar navbar-default">
     <div class="container-fluid">
+
+        <!-- Collapsible Navbar -->
         <div class="navbar-header">
             <button type="button"
                     class="navbar-toggle"
@@ -10,42 +12,58 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">Movie List Share</a>
+            <a class="navbar-brand"><p class="text-info">Movie List Share</p></a>
         </div>
 
+        <!-- Navbar Links -->
         <div class="collapse navbar-collapse"
              id="navbar-data">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a>Profile</a>
+                    <a><span class="glyphicon glyphicon-user"></span> Profile</a>
                 </li>
+
                 <li>
-                    <a href="#/my-lists">My Lists</a>
+                    <a href="#/my-lists">
+                        <span class="glyphicon glyphicon-list"></span> My Lists
+                    </a>
                 </li>
+
                 <li>
-                    <a href="#/shared-lists">Shared</a>
+                    <a href="#/shared-lists">
+                        <span class="glyphicon glyphicon-list"></span> Shared With Me
+                    </a>
                 </li>
+
                 <li>
-                    <a href="#/friends">Friends</a>
+                    <a href="#/friends">
+                        <span class="glyphicon glyphicon-globe"></span> Friends
+                    </a>
                 </li>
             </ul>
+            <form class="navbar-form navbar-right">
+                <a href="#/login"
+                   class="btn btn-danger">
+                    Logout
+                </a>
+            </form>
         </div>
     </div>
 </nav>
 
 <!-- Main Content -->
 <div class="container">
+
     <!-- Profile Form -->
     <form class="form-horizontal">
-        <legend>Profile</legend>
-
+        <legend>My Profile</legend>
         <!-- Username Input -->
         <div class="form-group">
             <label for="username"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 Username
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="username"
                        type="text"
                        class="form-control"
@@ -57,10 +75,10 @@
         <!-- Email Input -->
         <div class="form-group">
             <label for="email"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 Email
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="email"
                        type="email"
                        class="form-control"
@@ -72,10 +90,10 @@
         <!-- First Name Input -->
         <div class="form-group">
             <label for="firstname"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 First Name
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="firstname"
                        type="text"
                        class="form-control"
@@ -87,10 +105,10 @@
         <!-- Last Name Input -->
         <div class="form-group">
             <label for="lastname"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 Last Name
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="lastname"
                        type="text"
                        class="form-control"
@@ -100,16 +118,10 @@
         </div>
 
         <!-- Buttons -->
-        <!--
-        <a ng-click="model.register(username, password, password_verify)"
-           class="btn btn-primary btn-block">
-            Register
+        <a href="#"
+           class="btn btn-default btn-block">
+            Save
         </a>
-        <a class="btn btn-danger btn-block"
-           href="#/login">
-            Cancel
-        </a>
-        -->
-
     </form>
+
 </div>

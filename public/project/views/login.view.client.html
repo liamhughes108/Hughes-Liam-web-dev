@@ -1,15 +1,17 @@
 <div class="container">
+        <h3 class="text-primary text-center">Movie List Share</h3>
+
     <!-- Login Form -->
-    <form class="form-horizontal">
+    <form class="form-horizontal text-center">
         <legend>Login</legend>
 
         <!-- Username Input -->
         <div class="form-group">
             <label for="username"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 Username
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="username"
                        type="text"
                        class="form-control"
@@ -21,10 +23,10 @@
         <!-- Password Input -->
         <div class="form-group">
             <label for="password"
-                   class="col-lg-2 control-label">
+                   class="col-sm-2 control-label">
                 Password
             </label>
-            <div class="col-lg-10">
+            <div class="col-sm-10">
                 <input ng-model="password"
                        type="password"
                        class="form-control"
@@ -34,14 +36,16 @@
         </div>
 
         <!-- Buttons -->
-        <a href="#/profile"
-           class="btn btn-primary btn-block">
-            Login
-        </a>
-        <a class="btn btn-default btn-block"
-           href="#/register">
-            Register
-        </a>
+        <div class="btn-group btn-group-justified">
+            <a href="#/profile"
+               class="btn btn-primary">
+                Login
+            </a>
+            <a class="btn btn-default"
+               href="#/register">
+                Register
+            </a>
+        </div>
 
     </form>
 </div>
