@@ -2,6 +2,51 @@ module.exports = function (app, models) {
 
     var userModel = models.userModel;
 
+    var passport = require('passport');
+    var LocalStrategy = require('passport-local').Strategy;
+
+    passport.serializeUser(serializeUser);
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    passport.deserializeUser(deserializeUser);
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+    passport.use(new LocalStrategy(localStrategy));
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if (user.username === username && user.password === password) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            );
+    }
+
     var users = [
         {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
         {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
@@ -9,6 +54,9 @@ module.exports = function (app, models) {
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
     ];
 
+    app.post('/api/login', passport.authenticate('wam'), login);
+    app.post('/api/logout', logout);
+    app.post('/api/register', register);
     app.post("/api/user", createUser);
     app.get("/api/user", getUsers);
     app.get("/api/user?username=username", findUserByUsername);
@@ -16,6 +64,36 @@ module.exports = function (app, models) {
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function register(req, res) {
+        var user = req.body;
+        userModel
+            .createUser(user)
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                }
+            );
+    }
+
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -103,7 +181,7 @@ module.exports = function (app, models) {
 
     function deleteUser(req, res) {
         var id = req.params.userId;
-        
+
         userModel
             .deleteUser(id)
             .then(

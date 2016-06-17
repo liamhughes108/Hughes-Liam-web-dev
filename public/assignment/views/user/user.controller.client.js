@@ -12,11 +12,12 @@
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
     ];
 
-    function ProfileController($routeParams, UserService) {
+    function ProfileController($routeParams, UserService, $rootScope, $location) {
         var vm = this;
         vm.updateUser = updateUser;
-
         var id = $routeParams.id;
+
+        vm.logout = logout;
 
         function init() {
             UserService
@@ -27,8 +28,21 @@
                     }
                 );
         }
-
         init();
+
+        function logout() {
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                        $location.url("/");
+                    },
+                    function (error) {
+                        console.log(error);
+                    }
+                );
+        }
 
         function unregister() {
             UserService
@@ -60,17 +74,15 @@
     function LoginController($location, UserService) {
         var vm = this;
 
-        vm.login = function login(username, password) {
+        vm.login = function login(user) {
             UserService
-                .findUserByCredentials(username, password)
+                .login(user)
                 .then(
                     function (response) {
                         console.log(response);
                         var user = response.data;
-                        if (user) {
-                            var id = user._id;
-                            $location.url("/user/" + id);
-                        }
+                        $rootScope.currentUser = user;
+                        $location.url("/user/"+user._id);
                     },
                     function (error) {
                         vm.error = "User not found";
@@ -79,17 +91,24 @@
         }
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
 
         vm.register = function (username, password, pass_verify) {
             if (password === pass_verify) {
+                var user = {
+                    username: username,
+                    password: password
+                }
+
                 UserService
-                    .createUser(username, password)
+                    .register(user)
                     .then(
                         function(response){
                             var user = response.data;
+                            $rootScope.currentUser = user;
                             $location.url("/user/"+user._id);
+
                         },
                         function(error){
                             vm.error = error.data;
