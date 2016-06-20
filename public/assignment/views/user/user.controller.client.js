@@ -75,8 +75,13 @@
         var vm = this;
 
         vm.login = function login(username, password) {
+            var user = {
+                username: username,
+                password: password
+            }
+            
             UserService
-                .login(username, password)
+                .login(user)
                 .then(
                     function (response) {
                         console.log(response);

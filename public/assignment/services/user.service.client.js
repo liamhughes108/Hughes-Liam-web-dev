@@ -23,12 +23,8 @@
             return $http.get("/api/loggedin");
         }
 
-        function login(username, password) {
-            var user = {
-                username: username,
-                password: password
-            };            
-            console.log(username);
+        function login(user) {
+            console.log(user);
             return $http.post("/api/login", user);
         }
 
