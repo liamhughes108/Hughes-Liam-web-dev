@@ -2,7 +2,7 @@ module.exports = function (app, models) {
     var widgetModel = models.widgetModel;
 
     var multer = require('multer'); // npm install multer --save
-    var upload = multer({dest: '/../../public/uploads'});
+    var upload = multer({dest: '../../public/uploads'});
 
     var widgets = [
         {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
