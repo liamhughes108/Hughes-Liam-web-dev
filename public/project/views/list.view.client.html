@@ -1,0 +1,86 @@
+<!-- Header -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <!-- Header Navbar -->
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="#/my-lists"
+                   class="navbar-link">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+                </a>
+            </p>
+            <a class="navbar-brand"><p class="text-info">Edit List</p></a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- List of Movies -->
+<div class="container">
+
+    <form>
+        <div class="form-group">
+            <label class="control-label">List Title</label>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Change</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-group">
+
+        <!-- Movie item -->
+        <!-- ng-repeat="website in model.websites" -->
+        <li class="list-group-item">
+            <img src="http://placehold.it/100x150">
+            <span class="text-primary lead">
+                Movie Title
+            </span>
+            <div class="pull-right">
+                <a href="#/remove">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <img src="http://placehold.it/100x150">
+            <span class="text-primary lead">
+                Another Movie Title
+            </span>
+            <div class="pull-right">
+                <a href="#/remove">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </div>
+        </li>
+
+        <li class="list-group-item">
+            <img src="http://placehold.it/100x150">
+            <span class="text-primary lead">
+                A Third Movie Title
+            </span>
+            <div class="pull-right">
+                <a href="#/remove">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Add Button -->
+    <div class="text-center">
+        <a href="#/search" class="btn btn-primary text-center">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add Movie
+        </a>
+    </div>
+</div>

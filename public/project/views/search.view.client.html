@@ -1,0 +1,67 @@
+<!-- Header Navigation -->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <!-- Header Navbar -->
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="#/list"
+                   class="navbar-link">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+                </a>
+            </p>
+            <a class="navbar-brand"><p class="text-info">Search Movies</p></a>
+        </div>
+
+    </div>
+</nav>
+
+<!-- Search Input -->
+<div class="container">
+    <div class="input-group">
+        <input ng-model="searchText"
+               type="text"
+               class="form-control"
+               placeholder="Search">
+        <span class="input-group-btn">
+            <a ng-click="model.searchMovies(searchText)"
+               class="btn btn-default"
+               type="button">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+        </span>
+    </div>
+</div>
+
+<!-- Movie List -->
+<div class="container">
+    <div class="well">
+
+        <ul class="list-group">
+
+            <!-- Movie Item -->
+            <!-- ng-repeat="movie in model.movies.movie" -->
+            <li class="list-group-item col-sm-6">
+                <img src="http://placehold.it/100x150">
+            <span class="text-primary lead text-nowrap">
+                Movie Title
+            </span>
+            </li>
+
+            <li class="list-group-item col-sm-6">
+                <img src="http://placehold.it/100x150">
+            <span class="text-primary lead text-nowrap">
+                Another Movie Title
+            </span>
+            </li>
+
+            <li class="list-group-item col-sm-6">
+                <img src="http://placehold.it/100x150">
+            <span class="text-primary lead text-nowrap">
+                A Third Movie Title
+            </span>
+            </li>
+        </ul>
+    </div>
+</div>
