@@ -6,6 +6,7 @@
     function UserService($http) {
 
         var api = {
+            checkLoggedin: checkLoggedin,
             login: login,
             logout: logout,
             register: register,
@@ -18,7 +19,16 @@
         };
         return api;
 
-        function login(user) {
+        function checkLoggedin() {
+            return $http.get("/api/loggedin");
+        }
+
+        function login(username, password) {
+            var user = {
+                username: username,
+                password: password
+            };            
+            console.log(username);
             return $http.post("/api/login", user);
         }
 

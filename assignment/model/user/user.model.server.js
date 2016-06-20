@@ -5,14 +5,20 @@ module.exports = function () {
     var User = mongoose.model("User", UserSchema);
 
     var api = {
+        findFacebookUser: findFacebookUser,
         createUser: createUser,
         findUserByCredentials: findUserByCredentials,
         findUserByUsername: findUserByUsername,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findUserByFacebookId: findUserByFacebookId
     };
     return api;
+
+    function findFacebookUser(id) {
+        return User.findOne({'facebook.id': id});
+    }
 
     function createUser(user) {
         return User.create(user);
@@ -26,8 +32,9 @@ module.exports = function () {
         return User.findOne({username: username, password: password});
     }
 
-    function findUserByUsername() {
-        return User.findOne({username: username});
+    function findUserByUsername(username) {
+        var result = User.findOne({username: username})
+        return result;
     }
 
     function updateUser(id, newUser) {
@@ -44,5 +51,9 @@ module.exports = function () {
 
     function deleteUser(userId) {
         return User.remove({_id: userId});
+    }
+
+    function findUserByFacebookId(facebookId) {
+        return User.findOne({'facebook.id': facebookId});
     }
 };

@@ -11,12 +11,15 @@ var assignment = require('./assignment/app.js');
 assignment(app);
 
 var cookieParser = require('cookie-parser');
-var session      = require('express-session');
-
-app.use(cookieParser());
-app.use(session({ secret: process.env.SESSION_SECRET }));
-
+var session = require('express-session');
 var passport = require('passport');
+
+app.use(session({
+    secret: process.env.SESSION_SECRET + '',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
