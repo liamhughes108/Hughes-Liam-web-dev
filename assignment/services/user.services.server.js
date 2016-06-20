@@ -38,9 +38,9 @@ module.exports = function (app, models) {
     passport.deserializeUser(deserializeUser);
 
     var facebookConfig = {
-        clientID: process.env.FACEBOOK_CLIENT_ID + '',
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET + '',
-        callbackURL: process.env.FACEBOOK_CALLBACK_URL + ''
+        clientID: 'ewq',
+        clientSecret: 'fds',
+        callbackURL: 'gfd'
     };
 
     passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
@@ -130,6 +130,7 @@ module.exports = function (app, models) {
                     if (user) {
                         req.login(user, function (err) {
                             if (err) {
+                                console.log(user);
                                 res.status(400).send(err);
                             } else {
                                 res.json(user);
@@ -167,13 +168,17 @@ module.exports = function (app, models) {
             .findUserByUsername(username)
             .then(
                 function (user) {
+                    console.log(user);
                     if (user && bcrypt.compareSync(password, user.password)) {
+                        console.log("user")
                         return done(null, user);
                     } else {
+                        console.log("false")
                         return done(null, false);
                     }
                 },
                 function (err) {
+                    console.log(err);
                     if (err) {
                         return done(err);
                     }

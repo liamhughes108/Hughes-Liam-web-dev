@@ -15,7 +15,7 @@ var session = require('express-session');
 var passport = require('passport');
 
 app.use(session({
-    secret: process.env.SESSION_SECRET + '',
+    secret: 'fds',
     resave: true,
     saveUninitialized: true
 }));

@@ -71,7 +71,7 @@
         }
     }
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService, $rootScope) {
         var vm = this;
 
         vm.login = function login(username, password) {
@@ -86,10 +86,13 @@
                     function (response) {
                         console.log(response);
                         var userRes = response.data;
-                        $rootScope.currentUser = userRes;
-                        $location.url("/user/"+userRes._id);
+                        if(userRes) {
+                            $rootScope.currentUser = userRes;
+                            $location.url("/user/" + userRes._id);
+                        }
                     },
                     function (error) {
+                        console.log(error);
                         vm.error = "User not found";
                     }
                 );
