@@ -171,16 +171,16 @@ module.exports = function (app, models) {
                     console.log(user);
                     if (user && bcrypt.compareSync(password, user.password)) {
                         console.log("user")
-                        return done(null, user);
+                        done(null, user);
                     } else {
                         console.log("false")
-                        return done(null, false);
+                        done(null, false);
                     }
                 },
                 function (err) {
                     console.log(err);
                     if (err) {
-                        return done(err);
+                        done(err);
                     }
                 }
             );
