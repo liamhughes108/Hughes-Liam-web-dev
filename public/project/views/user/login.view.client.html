@@ -1,6 +1,20 @@
 <div class="container">
     <h3 class="text-primary text-center">Movie List Share</h3>
 
+    <!-- Error Reporting -->
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <!-- Validate -->
+    <div ng-show="username.$submitted && username.$invalid" class="alert alert-danger">
+        Username is required
+    </div>
+
+    <div ng-show="password.$submitted && password.$invalid" class="alert alert-danger">
+        Password is required
+    </div>
+
     <!-- Login Form -->
     <form class="form-horizontal text-center">
         <legend>Login</legend>
@@ -13,6 +27,7 @@
             </label>
             <div class="col-sm-10">
                 <input ng-model="username"
+                       required
                        type="text"
                        class="form-control"
                        id="username"
@@ -28,6 +43,7 @@
             </label>
             <div class="col-sm-10">
                 <input ng-model="password"
+                       required
                        type="password"
                        class="form-control"
                        id="password"
@@ -37,7 +53,7 @@
 
         <!-- Buttons -->
         <div class="btn-group btn-group-justified">
-            <a href="#/profile"
+            <a href="model.login(username, password)"
                class="btn btn-primary">
                 Login
             </a>
