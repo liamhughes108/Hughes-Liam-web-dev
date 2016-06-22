@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker")
+        .module("MovieListShare")
         .factory("UserService", UserService);
 
     function UserService($http) {

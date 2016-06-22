@@ -15,7 +15,6 @@ module.exports = function (app, models) {
     app.get("/api/user?username=username", findUserByUsername);
     app.get("/api/user?username=username&password=password", findUserByCredentials);
     app.get("/api/user/:userId", findUserById);
-    app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", authenticate, deleteUser);
 
@@ -119,10 +118,11 @@ module.exports = function (app, models) {
                 function (user) {
                     console.log(user);
                     if (user && bcrypt.compareSync(password, user.password)) {
-                        console.log("user")
+                        console.log("user");
+                        console.log(done);
                         done(null, user);
                     } else {
-                        console.log("false")
+                        console.log("false");
                         done(null, false);
                     }
                 },

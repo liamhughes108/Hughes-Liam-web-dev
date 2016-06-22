@@ -1,22 +1,22 @@
 <div class="container">
     <h3 class="text-primary text-center">Movie List Share</h3>
 
-    <!-- Error Reporting -->
-    <div ng-if="model.error" class="alert alert-danger">
-        {{model.error}}
-    </div>
-
-    <!-- Validate -->
-    <div ng-show="username.$submitted && username.$invalid" class="alert alert-danger">
-        Username is required
-    </div>
-
-    <div ng-show="password.$submitted && password.$invalid" class="alert alert-danger">
-        Password is required
-    </div>
-
     <!-- Login Form -->
     <form class="form-horizontal text-center">
+        <!-- Error Reporting -->
+        <div ng-if="model.error" class="alert alert-danger">
+            {{model.error}}
+        </div>
+
+        <!-- Validate -->
+        <div ng-show="username.$submitted && username.$invalid" class="alert alert-danger">
+            Username is required
+        </div>
+
+        <div ng-show="password.$submitted && password.$invalid" class="alert alert-danger">
+            Password is required
+        </div>
+
         <legend>Login</legend>
 
         <!-- Username Input -->
