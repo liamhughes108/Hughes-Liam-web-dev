@@ -7,13 +7,6 @@ module.exports = function (app, models) {
 
     var userModel = models.userModel;
 
-    var users = [
-        {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder"},
-        {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-        {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-        {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
-    ];
-
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', {
             successRedirect: '/#/user',
@@ -111,6 +104,7 @@ module.exports = function (app, models) {
             .then(
                 function (user) {
                     if (user) {
+                        console.log(user);
                         res.status(400).send("Username already exists");
                         return;
                     } else {
@@ -118,7 +112,6 @@ module.exports = function (app, models) {
                         return userModel
                             .createUser(req.body);
                     }
-                    console.log(user);
                     res.send(200);
                 },
                 function (error) {

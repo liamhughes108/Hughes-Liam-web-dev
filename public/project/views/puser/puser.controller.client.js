@@ -5,7 +5,7 @@
         .controller("ProfileController", ProfileController)
         .controller("RegisterController", RegisterController);
 
-    function LoginController($location, UserService, $rootScope) {
+    function LoginController($location, PUserService, $rootScope) {
         var vm = this;
 
         vm.login = function login(username, password) {
@@ -14,7 +14,7 @@
                 password: password
             }
 
-            UserService
+            PUserService
                 .login(user)
                 .then(
                     function (res) {
@@ -33,7 +33,7 @@
         }
     }
 
-    function RegisterController($location, UserService, $rootScope) {
+    function RegisterController($location, PUserService, $rootScope) {
         var vm = this;
 
         vm.register = function (username, password) {
@@ -42,7 +42,7 @@
                 password: password
             }
 
-            UserService
+            PUserService
                 .register(user)
                 .then(
                     function (res) {
@@ -53,24 +53,24 @@
 
                     },
                     function (error) {
-                        console.log(error);
+                        console.log(error.data);
                         vm.error = error.data;
                     }
                 );
         }
     }
 
-    function ProfileController($routeParams, UserService, $rootScope, $location) {
+    function ProfileController($routeParams, PUserService, $rootScope, $location) {
         var vm = this;
-        var id = $routeParams.uid;
+        vm.uid = $routeParams.uid;
 
         vm.logout = logout;
         vm.unregister = unregister;
         vm.updateUser = updateUser;
 
         function init() {
-            UserService
-                .findUserById(id)
+            PUserService
+                .findUserById(vm.uid)
                 .then(
                     function (res) {
                         vm.user = res.data;
@@ -80,7 +80,7 @@
         init();
         
         function logout() {
-            UserService
+            PUserService
                 .logout()
                 .then(
                     function (response) {
@@ -94,8 +94,8 @@
         }
 
         function unregister() {
-            UserService
-                .deleteUser(id)
+            PUserService
+                .deleteUser(vm.uid)
                 .then(
                     function (response) {
                         $location.url("/login");
@@ -107,8 +107,8 @@
         }
         
         function updateUser() {
-            UserService
-                .updateUser(id, vm.user)
+            PUserService
+                .updateUser(vm.uid, vm.user)
                 .then(
                     function (res) {
                         vm.success = "User successfully updated";

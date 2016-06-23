@@ -4,19 +4,19 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function (app, models) {
 
-    var userModel = models.userModel;
+    var pUserModel = models.pUserModel;
 
-    app.post('/api/login', passport.authenticate('wam'), login);
-    app.post('/api/logout', logout);
-    app.post('/api/register', register);
-    app.post("/api/user", createUser);
-    app.get('/api/loggedin', loggedin);
-    app.get("/api/user", getUsers);
-    app.get("/api/user?username=username", findUserByUsername);
-    app.get("/api/user?username=username&password=password", findUserByCredentials);
-    app.get("/api/user/:userId", findUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", authenticate, deleteUser);
+    app.post('/api/p/login', passport.authenticate('wam'), login);
+    app.post('/api/p/logout', logout);
+    app.post('/api/p/register', register);
+    app.post("/api/p/puser", createUser);
+    app.get('/api/p/loggedin', loggedin);
+    app.get("/api/p/puser", getUsers);
+    app.get("/api/p/puser?username=username", findUserByUsername);
+    app.get("/api/p/puser?username=username&password=password", findUserByCredentials);
+    app.get("/api/p/puser/:userId", findUserById);
+    app.put("/api/p/puser/:userId", updateUser);
+    app.delete("/api/p/puser/:userId", authenticate, deleteUser);
 
     passport.use('wam', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -54,19 +54,20 @@ module.exports = function (app, models) {
     function register(req, res) {
         var username = req.body.username;
         var password = req.body.password;
-        userModel
+
+        pUserModel
             .findUserByUsername(username)
             .then(
                 function (user) {
                     if (user) {
+                        console.log(user);
                         res.status(400).send("Username already exists");
                         return;
                     } else {
                         req.body.password = bcrypt.hashSync(password);
-                        return userModel
+                        return pUserModel
                             .createUser(req.body);
                     }
-                    console.log(user);
                     res.send(200);
                 },
                 function (error) {
@@ -97,7 +98,7 @@ module.exports = function (app, models) {
     }
 
     function deserializeUser(user, done) {
-        userModel
+        pUserModel
             .findUserById(user._id)
             .then(
                 function (user) {
@@ -112,7 +113,7 @@ module.exports = function (app, models) {
     function localStrategy(username, password, done) {
         console.log(username);
 
-        userModel
+        pUserModel
             .findUserByUsername(username)
             .then(
                 function (user) {
@@ -138,7 +139,7 @@ module.exports = function (app, models) {
     function createUser(req, res) {
         var newUser = req.body;
 
-        userModel
+        pUserModel
             .createUser(newUser)
             .then(
                 function (user) {
@@ -165,7 +166,7 @@ module.exports = function (app, models) {
     function findUserById(req, res) {
         var userId = req.params.userId;
 
-        userModel
+        pUserModel
             .findUserById(userId)
             .then(
                 function (user) {
@@ -178,7 +179,7 @@ module.exports = function (app, models) {
     }
 
     function findUserByUsername(username, res) {
-        userModel
+        pUserModel
             .findUserByUsername(username)
             .then(
                 function (user) {
@@ -191,7 +192,7 @@ module.exports = function (app, models) {
     }
 
     function findUserByCredentials(username, password, res) {
-        userModel
+        pUserModel
             .findUserByCredentials(username, password)
             .then(
                 function (user) {
@@ -207,7 +208,7 @@ module.exports = function (app, models) {
         var id = req.params.userId;
         var newUser = req.body;
 
-        userModel
+        pUserModel
             .updateUser(id, newUser)
             .then(
                 function (user) {
@@ -222,7 +223,7 @@ module.exports = function (app, models) {
     function deleteUser(req, res) {
         var id = req.params.userId;
 
-        userModel
+        pUserModel
             .deleteUser(id)
             .then(
                 function (status) {

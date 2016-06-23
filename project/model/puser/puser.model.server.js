@@ -1,8 +1,8 @@
 module.exports = function () {
 
     var mongoose = require("mongoose");
-    var UserSchema = require("./user.schema.server")();
-    var User = mongoose.model("User", UserSchema);
+    var PUserSchema = require("./puser.schema.server")();
+    var PUser = mongoose.model("PUser", PUserSchema);
 
     var api = {
         createUser: createUser,
@@ -15,23 +15,23 @@ module.exports = function () {
     return api;
 
     function createUser(user) {
-        return User.create(user);
+        return PUser.create(user);
     }
 
     function findUserById(userId) {
-        return User.findById(userId);
+        return PUser.findById(userId);
     }
 
     function findUserByCredentials(username, password) {
-        return User.findOne({username: username, password: password});
+        return PUser.findOne({username: username, password: password});
     }
 
     function findUserByUsername(username) {
-         return User.findOne({username: username});
+         return PUser.findOne({username: username});
     }
 
     function updateUser(id, newUser) {
-        return User.update(
+        return PUser.update(
             {_id: id},
             {
                 $set: {
@@ -45,6 +45,6 @@ module.exports = function () {
     }
 
     function deleteUser(userId) {
-        return User.remove({_id: userId});
+        return PUser.remove({_id: userId});
     }
 };

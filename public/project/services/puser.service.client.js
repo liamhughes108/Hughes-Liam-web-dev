@@ -1,9 +1,9 @@
 (function () {
     angular
         .module("MovieListShare")
-        .factory("UserService", UserService);
+        .factory("PUserService", PUserService);
 
-    function UserService($http) {
+    function PUserService($http) {
 
         var api = {
             checkLoggedin: checkLoggedin,
@@ -20,24 +20,24 @@
         return api;
 
         function checkLoggedin() {
-            return $http.get("/api/loggedin");
+            return $http.get("/api/p/loggedin");
         }
 
         function login(user) {
             console.log(user);
-            return $http.post("/api/login", user);
+            return $http.post("/api/p/login", user);
         }
 
         function logout(user) {
-            return $http.post("/api/logout");
+            return $http.post("/api/p/logout");
         }
 
         function register(user) {
-            return $http.post("/api/register", user);
+            return $http.post("/api/p/register", user);
         }
 
         function createUser(username, password) {
-            var url = "/api/user";
+            var url = "/api/p/puser";
             var user = {
                 username: username,
                 password: password
@@ -46,27 +46,27 @@
         }
 
         function findUserById(id) {
-            var url = "/api/user/" + id;
+            var url = "/api/p/puser/" + id;
             return $http.get(url);
         }
 
         function findUserByUsername(username) {
-            var url = "/api/user/" + username;
+            var url = "/api/p/puser/" + username;
             return $http.get(url);
         }
 
         function findUserByCredentials(username, password) {
-            var url = "/api/user?username=" + username + "&password=" + password;
+            var url = "/api/p/puser?username=" + username + "&password=" + password;
             return $http.get(url);
         }
 
         function updateUser(id, newUser) {
-            var url = "/api/user/" + id;
+            var url = "/api/p/puser/" + id;
             return $http.put(url, newUser);
         }
 
         function deleteUser(id) {
-            var url = "/api/user/" + id;
+            var url = "/api/p/puser/" + id;
             return $http.delete(url);
         }
     }
