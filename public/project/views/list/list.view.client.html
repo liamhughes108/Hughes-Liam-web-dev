@@ -5,7 +5,7 @@
         <!-- Header Navbar -->
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/my-lists"
+                <a href="#/user/{{model.uid}}/my-lists"
                    class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
@@ -25,14 +25,14 @@
             <label class="control-label"
                    for="title">List Title</label>
             <div class="input-group">
-                <input type="text"
+                <input ng-model="model.list.title"
+                       type="text"
                        class="form-control"
                        id="title"
-                       placeholder="Title"
-                       value="A List of Movies">
-                <span class="input-group-btn">
+                       placeholder="Title">
+                <a ng-click="model.updateList()" class="input-group-btn">
                     <button class="btn btn-default" type="button">Change</button>
-                </span>
+                </a>
             </div>
         </div>
     </form>
@@ -40,40 +40,13 @@
     <ul class="list-group">
 
         <!-- Movie item -->
-        <!-- ng-repeat="website in model.websites" -->
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
+        <li ng-repeat="movie in model.movies" class="list-group-item">
+            <img src="movie.poster">
             <span class="text-primary lead">
-                Movie Title
+                {{movie.title}}
             </span>
             <div class="pull-right">
-                <a href="#/remove">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-        </li>
-
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
-            <span class="text-primary lead">
-                Another Movie Title
-            </span>
-            <div class="pull-right">
-                <a href="#/remove">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-        </li>
-
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
-            <span class="text-primary lead">
-                A Third Movie Title
-            </span>
-            <div class="pull-right">
-                <a href="#/remove">
+                <a ng-click="model.deleteMovie(movie._id)">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
                 <span class="glyphicon glyphicon-align-justify"></span>
@@ -83,7 +56,7 @@
 
     <!-- Add Button -->
     <div class="text-center">
-        <a href="#/search" class="btn btn-primary text-center">
+        <a href="#//user/{{model.uid}}/my-lists/{{model.lid}}/search" class="btn btn-primary text-center">
             <span class="glyphicon glyphicon-plus"></span>
             Add Movie
         </a>

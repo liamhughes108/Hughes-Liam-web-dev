@@ -30,29 +30,29 @@
                 controller: "MyListsController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/shared-lists", {
-                templateUrl: "views/list/shared-lists.view.client.html",
-                controller: "SharedListsController",
-                controllerAs: "model"
-            })
             .when("/user/:uid/my-lists/:lid", {
                 templateUrl: "views/list/list.view.client.html",
                 controller: "ListController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/shared-lists/:lid", {
-                templateUrl: "views/list/list-shared.view.client.html",
-                controller: "ListSharedController",
-                controllerAs: "model"
-            })
-            .when("/user/:uid/shared-lists/:lid/search", {
+            .when("/user/:uid/my-lists/:lid/search", {
                 templateUrl: "views/list/search.view.client.html",
                 controller: "SearchController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/shared-lists/:lid/share", {
+            .when("/user/:uid/my-lists/:lid/share", {
                 templateUrl: "views/list/share.view.client.html",
                 controller: "ShareController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/shared-lists", {
+                templateUrl: "views/list/shared-lists.view.client.html",
+                controller: "SharedListsController",
+                controllerAs: "model"
+            })
+            .when("/user/:uid/shared-lists/:lid", {
+                templateUrl: "views/list/list-shared.view.client.html",
+                controller: "ListSharedController",
                 controllerAs: "model"
             })
             .when("/user/:uid/friends", {

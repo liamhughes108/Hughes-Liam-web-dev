@@ -20,7 +20,7 @@
              id="navbar-data">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#/profile">
+                    <a href="#/user/{{model.uid}}">
                         <span class="glyphicon glyphicon-user"></span> Profile
                     </a>
                 </li>
@@ -43,12 +43,6 @@
                     </a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <a href="#/login"
-                   class="btn btn-danger">
-                    Logout
-                </a>
-            </form>
         </div>
     </div>
 </nav>
@@ -56,48 +50,32 @@
 <!-- Main Content -->
 <div class="container">
 
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
     <!-- List of Lists -->
     <ul class="list-group">
 
         <!-- List Template -->
-        <!-- ng-repeat="list in model.lists" -->
-        <li class="list-group-item">
-            <a href="#/list">
-                A List of Movies
-            </a>
-            <div class="pull-right">
-                <a href="#/share" class="btn btn-primary btn-xs">
-                    <span class="glyphicon glyphicon-share"></span>
-                </a>
-                <a href="#/remove" class="btn btn-danger btn-xs">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
+        <li ng-repeat="list in model.lists" class="list-group-item">
+            <div ng-switch on="list">
+                <div ng-switch-when="list.title">
+                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}">
+                        {{list.title}}
+                    </a>
+                </div>
+                <div ng-switch-default>
+                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}">
+                        No Title
+                    </a>
+                </div>
             </div>
-        </li>
-
-        <li class="list-group-item">
-            <a>
-                Another List of Movies
-            </a>
             <div class="pull-right">
-                <a href="#/share" class="btn btn-primary btn-xs">
+                <a href="#/user/{{model.uid}}/my-lists/{{list._id}}/share" class="btn btn-primary btn-xs">
                     <span class="glyphicon glyphicon-share"></span>
                 </a>
-                <a href="#/remove" class="btn btn-danger btn-xs">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-            </div>
-        </li>
-
-        <li class="list-group-item">
-            <a>
-                A third List of Movies
-            </a>
-            <div class="pull-right">
-                <a href="#/share" class="btn btn-primary btn-xs">
-                    <span class="glyphicon glyphicon-share"></span>
-                </a>
-                <a href="#/remove" class="btn btn-danger btn-xs">
+                <a ng-click="model.delete(list._id)" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span>
                 </a>
             </div>
@@ -106,7 +84,7 @@
 
     <!-- Add Button -->
     <div class="text-center">
-        <a  href="#/list" class="btn btn-primary text-center">
+        <a ng-click="model.createList()" class="btn btn-primary text-center">
             <span class="glyphicon glyphicon-plus"></span>
             New List
         </a>
