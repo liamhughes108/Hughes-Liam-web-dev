@@ -4,10 +4,12 @@ module.exports = function () {
 
     var pUserModel = require("./puser/puser.model.server.js")();
     var listModel = require("./list/list.model.server.js")();
+    var movieModel = require("./movie/movie.model.server.js")();
 
     var models = {
         pUserModel: pUserModel,
-        listModel: listModel
+        listModel: listModel,
+        movieModel: movieModel
     };
 
     return models;

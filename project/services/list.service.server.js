@@ -20,7 +20,7 @@ module.exports = function (app, models) {
                 function (error) {
                     res.status(404).send(error);
                 }
-            )
+            );
     }
 
     function findListById(req, res) {
@@ -35,7 +35,7 @@ module.exports = function (app, models) {
                 function (error) {
                     res.status(404).send(error);
                 }
-            )
+            );
     }
 
     function updateList(req, res) {
@@ -84,4 +84,4 @@ module.exports = function (app, models) {
                 }
             );
     }
-}
+};

@@ -21,7 +21,7 @@
         
         function createList(uid) {
             var url = "/api/user/" + uid + "/list";
-            var list = {}
+            var list = {};
             return $http.post(url, list);
         }
         
