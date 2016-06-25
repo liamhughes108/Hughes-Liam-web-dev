@@ -14,12 +14,12 @@
 
         function findMoviesByList(lid) {
             var url = "/api/list/" + lid + "/movie";
-            return $http.post(url);
+            return $http.get(url);
         }
         
         function createMovie(lid, movie) {
             var url = "/api/list/" + lid + "/movie";
-            return $http.get(url, movie);
+            return $http.post(url, movie);
         }
 
         function deleteMovie(mid) {

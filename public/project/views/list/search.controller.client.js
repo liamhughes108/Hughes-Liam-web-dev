@@ -5,6 +5,7 @@
 
     function SearchController($routeParams, OMDbService, ListService, MovieService, $location) {
         var vm = this;
+        vm.uid = $routeParams.uid;
         vm.lid = $routeParams.lid;
         vm.searchMovies = searchMovies;
         vm.selectMovie = selectMovie;
@@ -43,7 +44,7 @@
                 .searchMovies(searchText)
                 .then(
                     function (response) {
-                        console.log(response);
+                        vm.movies = response.data.Search;
                     },
                     function (error) {
                         console.log(error);

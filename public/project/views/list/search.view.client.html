@@ -41,13 +41,17 @@
         <ul class="list-group">
 
             <!-- Movie Item -->
-            <li ng-repeat="movie in model.movies.movie" class="list-group-item col-sm-6">
+            <li ng-repeat="movie in model.movies" class="list-group-item">
+                <div class="row">
                 <a ng-click="model.selectMovie(movie)">
-                    <img ng-src="{{movie.Poster}}">
-                    <span class="text-primary lead text-nowrap">
+                    <div class="text-primary lead pull-left">
                         {{movie.Title}}
-                    </span>
+                    </div>
+                    <div class="pull-right">
+                        <img ng-src="{{movie.Poster}}" height="100">
+                    </div>
                 </a>
+                </div>
             </li>
         </ul>
     </div>

@@ -11,7 +11,7 @@ module.exports = function (app, models) {
         var newMovie = req.body;
 
         movieModel
-            .createList(lid, newMovie)
+            .createMovie(lid, newMovie)
             .then(
                 function (movie) {
                     res.json(movie);
