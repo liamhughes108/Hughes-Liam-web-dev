@@ -5,10 +5,16 @@ module.exports = function () {
     var Movie = mongoose.model("Movie", MovieSchema);
 
     var api = {
+        createMovie: createMovie,
         findMoviesByList: findMoviesByList,
         deleteMovie: deleteMovie
     };
     return api;
+
+    function createMovie(lid, movie) {
+        movie._list = lid;
+        return Movie.create(movie);
+    }
 
     function findMoviesByList(lid) {
         return Movie.find({_list: lid});

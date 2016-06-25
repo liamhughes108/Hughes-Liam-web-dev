@@ -41,7 +41,7 @@
 
         <!-- Movie item -->
         <li ng-repeat="movie in model.movies" class="list-group-item">
-            <img src="movie.poster">
+            <img ng-src="{{movie.poster}}" alt="Poster">
             <span class="text-primary lead">
                 {{movie.title}}
             </span>
@@ -56,7 +56,7 @@
 
     <!-- Add Button -->
     <div class="text-center">
-        <a href="#//user/{{model.uid}}/my-lists/{{model.lid}}/search" class="btn btn-primary text-center">
+        <a href="#/user/{{model.uid}}/my-lists/{{model.lid}}/search" class="btn btn-primary text-center">
             <span class="glyphicon glyphicon-plus"></span>
             Add Movie
         </a>

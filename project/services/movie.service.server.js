@@ -2,9 +2,26 @@ module.exports = function (app, models) {
 
     var movieModel = models.movieModel;
 
+    app.post('/api/list/:lid/movie', createMovie)
     app.get('/api/list/:lid/movie', findMoviesByList);
     app.delete('/api/movie/:mid', deleteMovie);
 
+    function createMovie(req, res) {
+        var lid = req.params.lid;
+        var newMovie = req.body;
+
+        movieModel
+            .createList(lid, newMovie)
+            .then(
+                function (movie) {
+                    res.json(movie);
+                },
+                function (error) {
+                    res.status(400).send(error);
+                }
+            );
+    }
+    
     function findMoviesByList(req, res) {
         var lid = req.params.lid;
 

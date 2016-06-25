@@ -5,7 +5,6 @@
         .controller("SharedListsController", SharedListsController)
         .controller("ListController", ListController)
         .controller("ListSharedController", ListSharedController)
-        .controller("SearchController", SearchController)
         .controller("ShareController", ShareController);
 
     function MyListsController($routeParams, ListService, $location) {
@@ -44,9 +43,9 @@
                 )
         }
 
-        function deleteList() {
+        function deleteList(lid) {
             ListService
-                .deleteList(vm.uid)
+                .deleteList(lid)
                 .then(
                     init(),
                     function (error) {
@@ -93,10 +92,11 @@
                     }
                 );
         }
+        init();
 
-        function updateList(list) {
+        function updateList() {
             ListService
-                .updateList(vm.lid, list)
+                .updateList(vm.lid, vm.list)
                 .then (
                     init(),
                     function (error) {

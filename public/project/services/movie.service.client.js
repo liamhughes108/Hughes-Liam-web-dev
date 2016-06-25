@@ -6,6 +6,7 @@
     function MovieService($http) {
 
         var api = {
+            createMovie: createMovie,
             findMoviesByList: findMoviesByList,
             deleteMovie: deleteMovie
         };
@@ -13,7 +14,12 @@
 
         function findMoviesByList(lid) {
             var url = "/api/list/" + lid + "/movie";
-            return $http.get(url);
+            return $http.post(url);
+        }
+        
+        function createMovie(lid, movie) {
+            var url = "/api/list/" + lid + "/movie";
+            return $http.get(url, movie);
         }
 
         function deleteMovie(mid) {

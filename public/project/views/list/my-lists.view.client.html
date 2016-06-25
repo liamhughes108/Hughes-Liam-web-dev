@@ -59,25 +59,21 @@
 
         <!-- List Template -->
         <li ng-repeat="list in model.lists" class="list-group-item">
-            <div ng-switch on="list">
-                <div ng-switch-when="list.title">
-                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}">
-                        {{list.title}}
+            <div class="row">
+                <a ng-show="list.title" href="#/user/{{model.uid}}/my-lists/{{list._id}}">
+                    {{list.title}}
+                </a>
+                <a ng-hide="list.title" href="#/user/{{model.uid}}/my-lists/{{list._id}}">
+                    No Title
+                </a>
+                <div class="pull-right btn-group">
+                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}/share" class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-share"></span>
+                    </a>
+                    <a ng-click="model.deleteList(list._id)" class="btn btn-danger btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
                     </a>
                 </div>
-                <div ng-switch-default>
-                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}">
-                        No Title
-                    </a>
-                </div>
-            </div>
-            <div class="pull-right">
-                <a href="#/user/{{model.uid}}/my-lists/{{list._id}}/share" class="btn btn-primary btn-xs">
-                    <span class="glyphicon glyphicon-share"></span>
-                </a>
-                <a ng-click="model.delete(list._id)" class="btn btn-danger btn-xs">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
             </div>
         </li>
     </ul>
