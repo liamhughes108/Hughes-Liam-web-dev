@@ -5,7 +5,7 @@
         <!-- Header Navbar -->
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="#/my-lists"
+                <a href="#/user/{{model.uid}}/shared-lists"
                    class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
@@ -20,32 +20,18 @@
 <!-- List of Movies -->
 <div class="container">
 
-    <h2>A List of Movies</h2>
+    <h2>{{model.list.title}}</h2>
 
     <ul class="list-group">
 
         <!-- Movie item -->
-        <!-- ng-repeat="website in model.websites" -->
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
+        <li ng-repeat="movie in model.movies" class="list-group-item">
+            <img ng-src="{{movie.poster}}" height="100">
             <span class="text-primary lead">
-                Movie Title
+                {{movie.title}}
             </span>
         </li>
 
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
-            <span class="text-primary lead">
-                Another Movie Title
-            </span>
-        </li>
-
-        <li class="list-group-item">
-            <img src="http://placehold.it/100x150">
-            <span class="text-primary lead">
-                A Third Movie Title
-            </span>
-        </li>
     </ul>
 
 </div>

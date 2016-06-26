@@ -86,6 +86,7 @@
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.lists = [];
+        vm.username = [];
 
         function init() {
             PUserService
@@ -93,27 +94,9 @@
                 .then(
                     function (response) {
                         vm.user = response.data;
-                        vm.friends = vm.user.friends
+                        vm.friends = vm.user.friends;
 
-                        var username;
-                        for (var i = 0; i < vm.friends.length; i++) {
-                            username = vm.friends[i].username;
-                            ListService
-                                .findSharedListsByUser(vm.friends[i]._id)
-                                .then(
-                                    function (response) {
-                                        var sharedList = response.data;
-                                        for (var j = 0; j < sharedList.length; j++) {
-                                            sharedList[j].friend = username;
-                                            vm.lists.push(sharedList[j]);
-                                        }
-                                    },
-                                    function (error) {
-                                        console.log(error);
-                                        vm.error = error;
-                                    }
-                                );
-                        }
+                        initHelper(0);
                     },
                     function (error) {
                         console.log(error);
@@ -123,7 +106,29 @@
         }
 
         init();
-        
+
+        function initHelper(index) {
+            vm.username[index] = vm.friends[index].username;
+            ListService
+                .findSharedListsByUser(vm.friends[index]._id)
+                .then(
+                    function (response) {
+                        var sharedList = response.data;
+                        for (var j = 0; j < sharedList.length; j++) {
+                            sharedList[j].friend = vm.username[index];
+                            vm.lists.push(sharedList[j]);
+                        }
+                        index+=1;
+                        if(index < vm.friends.length) {
+                            initHelper(index);
+                        }
+                    },
+                    function (error) {
+                        console.log(error);
+                        vm.error = error;
+                    }
+                );
+        }
     }
 
     function ListController($routeParams, ListService, MovieService) {
@@ -185,8 +190,36 @@
         }
     }
 
-    function ListSharedController() {
+    function ListSharedController($routeParams, ListService, MovieService) {
         var vm = this;
+        vm.uid = $routeParams.uid;
+        vm.lid = $routeParams.lid;
+
+        function init() {
+            ListService
+                .findListById(vm.lid)
+                .then(
+                    function (response) {
+                        vm.list = response.data;
+                    },
+                    function (error) {
+                        vm.error = error;
+                    }
+                );
+
+            MovieService
+                .findMoviesByList(vm.lid)
+                .then(
+                    function (response) {
+                        vm.movies = response.data;
+                    },
+                    function (error) {
+                        vm.error = error;
+                    }
+                );
+        }
+
+        init();
     }
 })
 ();
