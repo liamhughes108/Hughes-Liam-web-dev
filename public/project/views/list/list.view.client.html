@@ -41,16 +41,18 @@
 
         <!-- Movie item -->
         <li ng-repeat="movie in model.movies" class="list-group-item">
-            <img ng-src="{{movie.poster}}" height="100">
-            <span class="text-primary lead">
-                {{movie.title}}
-            </span>
-            <div class="pull-right">
-                <a ng-click="model.deleteMovie(movie._id)">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
+            <div class="row">
+                <div class="pull-right">
+                    <a ng-click="model.deleteMovie(movie._id)">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <span class="glyphicon glyphicon-align-justify"></span>
+                </div>
             </div>
+            <img ng-src="{{movie.poster}}" height="100">
+            <a class="text-primary lead">
+                {{movie.title}}
+            </a>
         </li>
     </ul>
 

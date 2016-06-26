@@ -10,7 +10,11 @@
             createList: createList,
             deleteList: deleteList,
             findListById: findListById,
-            updateList: updateList
+            updateList: updateList,
+            shareList: shareList,
+            unshareList: unshareList,
+            findSharedListsByUser: findSharedListsByUser
+
         };
         return api;
         
@@ -38,6 +42,21 @@
         function updateList(lid, list) {
             var url = "/api/list/" + lid;
             return $http.put(url, list);
+        }
+        
+        function shareList(lid) {
+            var url = "/api/list/" + lid + "/share";
+            return $http.put(url);
+        }
+
+        function unshareList(lid) {
+            var url = "/api/list/" + lid + "/unshare";
+            return $http.put(url);
+        }
+        
+        function findSharedListsByUser(uid) {
+            var url = "/api/user/" + uid + "/list/shared";
+            return $http.get(url);
         }
     }
 })();

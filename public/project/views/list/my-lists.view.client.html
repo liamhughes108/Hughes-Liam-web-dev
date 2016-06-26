@@ -33,7 +33,7 @@
 
                 <li>
                     <a href="#/user/{{model.uid}}/shared-lists">
-                        <span class="glyphicon glyphicon-list"></span> Shared With Me
+                        <span class="glyphicon glyphicon-list"></span> Shared Lists
                     </a>
                 </li>
 
@@ -66,8 +66,11 @@
                 <a ng-hide="list.title" href="#/user/{{model.uid}}/my-lists/{{list._id}}">
                     No Title
                 </a>
-                <div class="pull-right btn-group">
-                    <a href="#/user/{{model.uid}}/my-lists/{{list._id}}/share" class="btn btn-primary btn-xs">
+                <div class="pull-right">
+                    <a ng-show="list.shared" ng-click="model.unshareList(list._id)" class="btn btn-primary btn-xs">
+                        <span class="glyphicon glyphicon-share"></span>
+                    </a>
+                    <a ng-hide="list.shared" ng-click="model.shareList(list._id)" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-share"></span>
                     </a>
                     <a ng-click="model.deleteList(list._id)" class="btn btn-danger btn-xs">

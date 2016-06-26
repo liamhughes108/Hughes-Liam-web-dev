@@ -40,11 +40,6 @@
                 controller: "SearchController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/my-lists/:lid/share", {
-                templateUrl: "views/list/share.view.client.html",
-                controller: "ShareController",
-                controllerAs: "model"
-            })
             .when("/user/:uid/shared-lists", {
                 templateUrl: "views/list/shared-lists.view.client.html",
                 controller: "SharedListsController",

@@ -4,7 +4,10 @@ module.exports = function (app, models) {
 
     app.get('/api/user/:uid/list', findMyListsByUser);
     app.get('/api/list/:lid', findListById);
+    app.get('/api/user/:uid/list/shared', findSharedListsByUser)
     app.put('/api/list/:lid', updateList);
+    app.put('/api/list/:lid/share', shareList);
+    app.put('/api/list/:lid/unshare', unshareList);
     app.post('/api/user/:uid/list', createList);
     app.delete('/api/list/:lid', deleteList);
 
@@ -38,6 +41,21 @@ module.exports = function (app, models) {
             );
     }
 
+    function findSharedListsByUser(req, res) {
+        var uid = req.params.uid;
+
+        listModel
+            .findSharedListsByUser(uid)
+            .then(
+                function (lists) {
+                    res.json(lists);
+                },
+                function (error) {
+                    res.status(404).send(error);
+                }
+            );
+    }
+
     function updateList(req, res) {
         var lid = req.params.lid;
         var newList = req.body;
@@ -48,7 +66,7 @@ module.exports = function (app, models) {
                 function (list) {
                     res.send(200);
                 },
-                function (list) {
+                function (error) {
                     res.status(404).send("Unable to update list with ID: " + lid);
                 }
             );
@@ -81,6 +99,36 @@ module.exports = function (app, models) {
                 },
                 function (error) {
                     res.status(404).send("Unable to remove list with ID: " + lid);
+                }
+            );
+    }
+    
+    function shareList(req, res) {
+        var lid = req.params.lid;
+        
+        listModel
+            .shareList(lid)
+            .then(
+                function (list) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to share list with ID: " + lid);
+                }
+            );
+    }
+
+    function unshareList(req, res) {
+        var lid = req.params.lid;
+
+        listModel
+            .unshareList(lid)
+            .then(
+                function (list) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to unshare list with ID: " + lid);
                 }
             );
     }

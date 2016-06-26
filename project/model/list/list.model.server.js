@@ -9,14 +9,17 @@ module.exports = function () {
         createList: createList,
         deleteList: deleteList,
         findListById: findListById,
-        updateList: updateList
+        updateList: updateList,
+        shareList: shareList,
+        unshareList: unshareList,
+        findSharedListsByUser: findSharedListsByUser
     };
     return api;
 
     function findMyListsByUser(uid) {
         return List.find({_user: uid});
     }
-    
+
     function createList(uid, list) {
         list._user = uid;
         return List.create(list);
@@ -26,7 +29,7 @@ module.exports = function () {
         return List.remove({_id: lid});
     }
 
-    function findListById(lid){
+    function findListById(lid) {
         return List.findById(lid);
     }
 
@@ -36,10 +39,37 @@ module.exports = function () {
             {
                 $set: {
                     title: list.title,
-                    sharedWith: list.sharedWith
                 }
             }
         );
     }
 
+    function shareList(lid) {
+        return List.update(
+            {_id: lid},
+            {
+                $set: {
+                    shared: true
+                }
+            }
+        );
+    }
+
+    function unshareList(lid) {
+        return List.update(
+            {_id: lid},
+            {
+                $set: {
+                    shared: false
+                }
+            }
+        );
+    }
+
+    function findSharedListsByUser(uid) {
+        return List.find({
+            _user: uid,
+            shared: true
+        });
+    }
 };

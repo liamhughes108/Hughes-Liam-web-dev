@@ -15,7 +15,10 @@
             findUserByUsername: findUserByUsername,
             findUserByCredentials: findUserByCredentials,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            addFriend: addFriend,
+            deleteFriend: deleteFriend
+
         };
         return api;
 
@@ -51,7 +54,7 @@
         }
 
         function findUserByUsername(username) {
-            var url = "/api/p/puser/" + username;
+            var url = "/api/p/puser/?username=" + username;
             return $http.get(url);
         }
 
@@ -68,6 +71,16 @@
         function deleteUser(id) {
             var url = "/api/p/puser/" + id;
             return $http.delete(url);
+        }
+
+        function addFriend(uid, fid, username) {
+            var url = "/api/p/puser/" + uid + "/friend/" + fid + "/add?username=" + username;
+            return $http.put(url);
+        }
+
+        function deleteFriend(uid, fid) {
+            var url = "/api/p/puser/" + uid + "/friend/" + fid + "/delete";
+            return $http.put(url);
         }
     }
 })();

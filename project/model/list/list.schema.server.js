@@ -4,7 +4,7 @@ module.exports = function () {
     var ListSchema = mongoose.Schema({
         _user: {type: mongoose.Schema.Types.ObjectId, ref: 'PUser'},
         title: String,
-        sharedWith: [String],
+        shared: {type: Boolean, default: false},
         dateCreate: {type: Date, default: Date.now}
     }, {collection: "project.list"});
 

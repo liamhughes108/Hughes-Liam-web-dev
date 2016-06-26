@@ -10,7 +10,9 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        addFriend: addFriend,
+        deleteFriend: deleteFriend
     };
     return api;
 
@@ -46,5 +48,32 @@ module.exports = function () {
 
     function deleteUser(userId) {
         return PUser.remove({_id: userId});
+    }
+
+    function addFriend(uid, fid, username) {
+        return PUser.update(
+            {_id: uid},
+            {
+                $push: {
+                    friends: {
+                        _id: fid,
+                        username: username
+                    }
+                }
+            }
+        );
+    }
+
+    function deleteFriend(uid, fid) {
+        return PUser.update(
+            {_id: uid},
+            {
+                $pull: {
+                    friends: {
+                        _id: fid
+                    }
+                }
+            }
+        );
     }
 };

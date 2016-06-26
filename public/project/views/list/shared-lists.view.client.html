@@ -20,35 +20,29 @@
              id="navbar-data">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#/profile">
+                    <a href="#/user/{{model.uid}}">
                         <span class="glyphicon glyphicon-user"></span> Profile
                     </a>
                 </li>
 
                 <li>
-                    <a href="#/my-lists">
+                    <a href="#/user/{{model.uid}}/my-lists">
                         <span class="glyphicon glyphicon-list"></span> My Lists
                     </a>
                 </li>
 
                 <li class="active">
                     <a>
-                        <span class="glyphicon glyphicon-list"></span> Shared With Me
+                        <span class="glyphicon glyphicon-list"></span> Shared Lists
                     </a>
                 </li>
 
                 <li>
-                    <a href="#/friends">
+                    <a href="#/user/{{model.uid}}/friends">
                         <span class="glyphicon glyphicon-globe"></span> Friends
                     </a>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <a href="#/login"
-                   class="btn btn-danger">
-                    Logout
-                </a>
-            </form>
         </div>
     </div>
 </nav>
@@ -56,60 +50,25 @@
 <!-- Main Content -->
 <div class="container">
 
-    <!-- List of Friends -->
+    <div ng-if="model.error" class="alert alert-danger">
+        {{model.error}}
+    </div>
+
+    <!-- List of Lists -->
     <ul class="list-group">
-        <li class="list-group-item">
-            <h2>Friend 1</h2>
-            <!-- List of Lists -->
-            <ul class="list-group">
-
-                <!-- List Template -->
-                <!-- ng-repeat="list in model.lists" -->
-                <li class="list-group-item">
-                    <a href="#/list-shared">
-                        A List of Movies
-                    </a>
-                </li>
-
-                <li class="list-group-item">
-                    <a>
-                        Another List of Movies
-                    </a>
-                </li>
-
-                <li class="list-group-item">
-                    <a>
-                        A third List of Movies
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="list-group-item">
-            <h2>Friend 2</h2>
-            <!-- List of Lists -->
-            <ul class="list-group">
-
-                <!-- List Template -->
-                <!-- ng-repeat="list in model.lists" -->
-                <li class="list-group-item">
-                    <a href="#/list-shared">
-                        A List of Movies
-                    </a>
-                </li>
-
-                <li class="list-group-item">
-                    <a>
-                        Another List of Movies
-                    </a>
-                </li>
-
-                <li class="list-group-item">
-                    <a>
-                        A third List of Movies
-                    </a>
-                </li>
-            </ul>
+        <!-- List Template -->
+        <li ng-repeat="list in model.lists | orderBy : '_user'" class="list-group-item">
+            <div class="row">
+                <a ng-show="list.title" href="#/user/{{model.uid}}/shared-lists/{{list._id}}">
+                    {{list.title}}
+                </a>
+                <a ng-hide="list.title" href="#/user/{{model.uid}}/shared-lists/{{list._id}}">
+                    No Title
+                </a>
+                <div class="pull-right">
+                    {{list.friend}}
+                </div>
+            </div>
         </li>
     </ul>
 

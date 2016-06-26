@@ -12,10 +12,10 @@ module.exports = function (app, models) {
     app.post("/api/p/puser", createUser);
     app.get('/api/p/loggedin', loggedin);
     app.get("/api/p/puser", getUsers);
-    app.get("/api/p/puser?username=username", findUserByUsername);
-    app.get("/api/p/puser?username=username&password=password", findUserByCredentials);
     app.get("/api/p/puser/:userId", findUserById);
     app.put("/api/p/puser/:userId", updateUser);
+    app.put("/api/p/puser/:uid/friend/:fid/add", addFriend);
+    app.put("/api/p/puser/:uid/friend/:fid/delete", deleteFriend);
     app.delete("/api/p/puser/:userId", authenticate, deleteUser);
 
     passport.use('wam', new LocalStrategy(localStrategy));
@@ -234,4 +234,37 @@ module.exports = function (app, models) {
                 }
             );
     }
-}
+
+    function addFriend(req, res) {
+        var uid = req.params.uid;
+        var fid = req.params.fid;
+        var username = req.query["username"];
+        
+        pUserModel
+            .addFriend(uid, fid, username)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to add Friend");
+                }
+            );
+    }
+
+    function deleteFriend(req, res) {
+        var uid = req.params.uid;
+        var fid = req.params.fid;
+
+        pUserModel
+            .deleteFriend(uid, fid)
+            .then(
+                function (status) {
+                    res.send(200);
+                },
+                function (error) {
+                    res.status(404).send("Unable to delete Friend");
+                }
+            );
+    }
+};
