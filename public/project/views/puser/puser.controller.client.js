@@ -35,12 +35,38 @@
 
     function RegisterController($location, PUserService, $rootScope) {
         var vm = this;
+        vm.register = register;
+        vm.registerAsAdmin = registerAsAdmin;
 
-        vm.register = function (username, password) {
+        function register(username, password) {
             var user = {
                 username: username,
                 password: password
-            }
+            };
+
+            PUserService
+                .register(user)
+                .then(
+                    function (res) {
+                        console.log(res);
+                        var userRes = res.data;
+                        $rootScope.currentUser = userRes;
+                        $location.url("/user/" + userRes._id);
+
+                    },
+                    function (error) {
+                        console.log(error.data);
+                        vm.error = error.data;
+                    }
+                );
+        }
+
+        function registerAsAdmin(username, password) {
+            var user = {
+                username: username,
+                password: password,
+                admin: true
+            };
 
             PUserService
                 .register(user)

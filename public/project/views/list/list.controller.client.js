@@ -96,7 +96,11 @@
                         vm.user = response.data;
                         vm.friends = vm.user.friends;
 
-                        initHelper(0);
+                        if (vm.user.admin) {
+                            initHelperAdmin(0);
+                        } else {
+                            initHelper(0);
+                        }
                     },
                     function (error) {
                         console.log(error);
@@ -121,6 +125,29 @@
                         index+=1;
                         if(index < vm.friends.length) {
                             initHelper(index);
+                        }
+                    },
+                    function (error) {
+                        console.log(error);
+                        vm.error = error;
+                    }
+                );
+        }
+
+        function initHelperAdmin(index) {
+            vm.username[index] = vm.friends[index].username;
+            ListService
+                .findMyListsByUser(vm.friends[index]._id)
+                .then(
+                    function (response) {
+                        var sharedList = response.data;
+                        for (var j = 0; j < sharedList.length; j++) {
+                            sharedList[j].friend = vm.username[index];
+                            vm.lists.push(sharedList[j]);
+                        }
+                        index+=1;
+                        if(index < vm.friends.length) {
+                            initHelperAdmin(index);
                         }
                     },
                     function (error) {

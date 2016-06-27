@@ -9,6 +9,7 @@ module.exports = function () {
         findUserByCredentials: findUserByCredentials,
         findUserByUsername: findUserByUsername,
         findUserById: findUserById,
+        findUserByGoogleId: findUserByGoogleId,
         updateUser: updateUser,
         deleteUser: deleteUser,
         addFriend: addFriend,
@@ -30,6 +31,10 @@ module.exports = function () {
 
     function findUserByUsername(username) {
          return PUser.findOne({username: username});
+    }
+
+    function findUserByGoogleId(gid) {
+        return PUser.findOne({google: {id: gid}});
     }
 
     function updateUser(id, newUser) {

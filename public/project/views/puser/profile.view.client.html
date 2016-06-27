@@ -58,9 +58,14 @@
         Username is required
     </div>
 
+    <div ng-if="model.user.admin" class="alert alert-info">
+        You are an <strong>Admin.</strong> You may view unshared lists of your friends.
+    </div>
+
     <!-- Profile Form -->
     <form class="form-horizontal">
         <legend>My Profile</legend>
+
         <!-- Username Input -->
         <div class="form-group">
             <label for="username"

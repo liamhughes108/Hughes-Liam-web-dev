@@ -7,6 +7,7 @@ module.exports = function () {
         firstName: String,
         lastName: String,
         email: String,
+        admin: {type: Boolean, default: false},
         friends: {
             type: [{
                 fid: mongoose.Schema.Types.ObjectId,
@@ -14,7 +15,11 @@ module.exports = function () {
             }],
             default: []
         },
-        dateCreate: {type: Date, default: Date.now}
+        dateCreate: {type: Date, default: Date.now},
+        google: {
+            id:    String,
+            token: String
+        }
     }, {collection: "project.puser"});
 
     return PUserSchema;
